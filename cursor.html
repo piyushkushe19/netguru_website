@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="NetApp Guru — Learn NetApp Step by Step. Online NetApp ONTAP Storage Administrator training with live classes, labs, recorded videos, and interview preparation." />
+<title>NetApp Guru — Learn NetApp Step by Step</title>
+<link rel="icon" href="https://netappguru.com/wp-content/uploads/2025/06/3.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+
+:root {
+  --blue: #046bd2;
+  --blue-deep: #045cb4;
+  --blue-logo: #0048a8;
+  --orange: #ff6900;
+  --orange-hot: #ff7a1a;
+  --amber: #fcb900;
+  --navy: #000080;
+  --navy-deep: #050d1f;
+  --navy-mid: #0a1a36;
+  --ink: #1e293b;
+  --ink-soft: #334155;
+  --mist: #F0F5FA;
+  --cloud: #f7fafc;
+  --white: #ffffff;
+  --line: rgba(4, 107, 210, 0.18);
+  --glass: rgba(255,255,255,0.08);
+  --glass-border: rgba(255,255,255,0.14);
+  --shadow: 0 24px 60px rgba(5, 13, 31, 0.28);
+  --radius: 18px;
+  --nav-h: 72px;
+  --font-display: "Syne", "Segoe UI", sans-serif;
+  --font-body: "Manrope", "Segoe UI", sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--navy-deep);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea { font: inherit; }
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+.skip-link {
+  position: absolute; left: -999px; top: 0; background: var(--orange); color: #fff; padding: .75rem 1rem; z-index: 10000;
+}
+.skip-link:focus { left: 1rem; top: 1rem; }
+
+/* Progress */
+#progress {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--orange));
+  z-index: 9999; transform-origin: left; pointer-events: none;
+}
+
+/* Loader */
+#loader {
+  position: fixed; inset: 0; z-index: 10000;
+  background: radial-gradient(circle at 30% 20%, #123066 0%, var(--navy-deep) 55%);
+  display: grid; place-items: center; transition: opacity .7s var(--ease), visibility .7s;
+}
+#loader.hide { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-inner { text-align: center; }
+.loader-logo { width: min(280px, 70vw); margin: 0 auto 1.5rem; filter: drop-shadow(0 0 24px rgba(4,107,210,.45)); animation: logoPulse 1.8s ease-in-out infinite; }
+.loader-bar {
+  width: min(220px, 60vw); height: 3px; margin: 0 auto; border-radius: 99px;
+  background: rgba(255,255,255,.12); overflow: hidden;
+}
+.loader-bar > span {
+  display: block; height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--orange));
+  animation: loadFill 1.6s var(--ease) forwards;
+}
+.loader-text { color: rgba(255,255,255,.7); margin-top: 1rem; letter-spacing: .18em; text-transform: uppercase; font-size: .72rem; }
+@keyframes logoPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+@keyframes loadFill { to { width: 100%; } }
+
+/* Nav */
+.nav {
+  position: fixed; inset: 0 0 auto 0; height: var(--nav-h); z-index: 900;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(1rem, 3vw, 2.5rem);
+  transition: background .35s var(--ease), backdrop-filter .35s, border-color .35s, height .3s;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  height: 64px;
+  background: rgba(5, 13, 31, 0.82);
+  backdrop-filter: blur(16px) saturate(1.2);
+  border-bottom-color: rgba(255,255,255,.08);
+}
+.nav-brand img { height: 36px; width: auto; }
+.nav-links { display: flex; gap: .15rem; align-items: center; list-style: none; margin: 0; padding: 0; }
+.nav-links a {
+  color: rgba(255,255,255,.78); font-size: .86rem; font-weight: 600;
+  padding: .55rem .85rem; border-radius: 999px; position: relative; transition: color .25s, background .25s;
+}
+.nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(255,255,255,.08); }
+.nav-links a.active::after {
+  content: ""; position: absolute; left: 18%; right: 18%; bottom: 6px; height: 2px;
+  background: linear-gradient(90deg, var(--blue), var(--orange)); border-radius: 2px;
+}
+.nav-cta {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: linear-gradient(135deg, var(--orange), #ff8a2b);
+  color: #fff !important; font-weight: 700 !important; padding: .65rem 1.1rem !important;
+  box-shadow: 0 8px 24px rgba(255,105,0,.35);
+}
+.nav-toggle {
+  display: none; width: 44px; height: 44px; border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.06); border-radius: 12px; color: #fff; cursor: pointer;
+}
+.nav-toggle span { display: block; width: 18px; height: 2px; margin: 4px auto; background: #fff; transition: .25s; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .55rem;
+  padding: .95rem 1.55rem; border-radius: 999px; border: none; cursor: pointer;
+  font-weight: 700; letter-spacing: .01em; transition: transform .25s var(--ease), box-shadow .25s, background .25s;
+  position: relative; overflow: hidden;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange) 0%, #ff8533 100%);
+  color: #fff; box-shadow: 0 14px 36px rgba(255,105,0,.38);
+}
+.btn-primary:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 18px 40px rgba(255,105,0,.48); }
+.btn-ghost {
+  background: rgba(255,255,255,.06); color: #fff; border: 1px solid rgba(255,255,255,.22);
+  backdrop-filter: blur(8px);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.12); transform: translateY(-2px); }
+.btn-blue {
+  background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+  color: #fff; box-shadow: 0 12px 30px rgba(4,107,210,.35);
+}
+.magnetic { will-change: transform; }
+
+/* Hero */
+.hero {
+  position: relative; min-height: 100vh; min-height: 100dvh;
+  display: grid; align-items: end; padding: calc(var(--nav-h) + 2rem) clamp(1.2rem, 4vw, 4rem) 4rem;
+  color: #fff; overflow: hidden;
+  background: radial-gradient(ellipse at 70% 20%, rgba(4,107,210,.35), transparent 50%),
+              radial-gradient(ellipse at 20% 80%, rgba(255,105,0,.18), transparent 45%),
+              linear-gradient(160deg, #071530 0%, #050d1f 50%, #0a2048 100%);
+}
+#hero-canvas, #hero-fallback {
+  position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+}
+#hero-fallback { opacity: .55; }
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(4,107,210,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(4,107,210,.08) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+  animation: gridDrift 28s linear infinite;
+}
+@keyframes gridDrift { to { background-position: 56px 56px; } }
+.hero-scan {
+  position: absolute; left: 0; right: 0; height: 120px; top: -120px;
+  background: linear-gradient(to bottom, transparent, rgba(4,107,210,.12), transparent);
+  animation: scanMove 7s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes scanMove { 0%{top:-120px} 100%{top:110%} }
+.hero-content {
+  position: relative; z-index: 2; max-width: 920px;
+  transform-style: preserve-3d; perspective: 1000px;
+}
+.hero-kicker {
+  display: inline-flex; align-items: center; gap: .6rem;
+  color: rgba(255,255,255,.72); font-size: .82rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  margin-bottom: 1.1rem;
+}
+.hero-kicker i {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--orange);
+  box-shadow: 0 0 0 0 rgba(255,105,0,.5); animation: pulseDot 2s infinite;
+}
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 0 rgba(255,105,0,.55); }
+  70% { box-shadow: 0 0 0 12px rgba(255,105,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,105,0,0); }
+}
+.hero-logo { width: min(320px, 78vw); margin-bottom: 1.4rem; filter: drop-shadow(0 10px 30px rgba(4,107,210,.35)); }
+.hero h1 {
+  font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 6.5vw, 5.2rem);
+  line-height: 1.02; margin: 0 0 1rem; letter-spacing: -0.03em;
+}
+.hero h1 .word {
+  display: inline-block; opacity: 0; filter: blur(10px); transform: translateY(28px);
+  animation: wordIn .9s var(--ease) forwards;
+}
+@keyframes wordIn { to { opacity: 1; filter: blur(0); transform: none; } }
+.hero-lead {
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: rgba(255,255,255,.82);
+  max-width: 42rem; margin: 0 0 1.6rem;
+}
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1.8rem;
+}
+.meta-chip {
+  display: inline-flex; align-items: center; gap: .55rem;
+  padding: .65rem 1rem; border-radius: 14px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(10px); font-size: .92rem;
+}
+.meta-chip strong { color: var(--amber); font-size: 1.05rem; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: .85rem; margin-bottom: 2rem; }
+.scroll-cue {
+  display: inline-flex; flex-direction: column; align-items: flex-start; gap: .45rem;
+  color: rgba(255,255,255,.55); font-size: .78rem; letter-spacing: .16em; text-transform: uppercase;
+  margin-top: 1rem; cursor: pointer; background: none; border: none; padding: 0;
+}
+.scroll-cue .mouse {
+  width: 22px; height: 34px; border: 2px solid rgba(255,255,255,.35); border-radius: 12px; position: relative;
+}
+.scroll-cue .mouse::after {
+  content: ""; position: absolute; top: 6px; left: 50%; width: 3px; height: 7px; margin-left: -1.5px;
+  background: var(--orange); border-radius: 2px; animation: wheel 1.6s infinite;
+}
+@keyframes wheel { 0%{opacity:1; transform:translateY(0)} 100%{opacity:0; transform:translateY(10px)} }
+
+/* Sections common */
+section { position: relative; }
+.section {
+  padding: clamp(4rem, 9vw, 7.5rem) clamp(1.2rem, 4vw, 4rem);
+}
+.section-light { background: var(--cloud); color: var(--ink); }
+.section-mist { background: linear-gradient(180deg, #fff 0%, var(--mist) 100%); color: var(--ink); }
+.section-dark {
+  background: linear-gradient(180deg, var(--navy-mid), var(--navy-deep));
+  color: #fff;
+}
+.section-navy {
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(4,107,210,.22), transparent 45%),
+    linear-gradient(160deg, #081833, #050d1f 60%);
+  color: #fff;
+}
+.container { width: min(1180px, 100%); margin: 0 auto; }
+.section-eyebrow {
+  display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: .85rem;
+}
+.section-dark .section-eyebrow, .section-navy .section-eyebrow { color: var(--amber); }
+.section-title {
+  font-family: var(--font-display); font-size: clamp(1.9rem, 4vw, 3.2rem); font-weight: 800;
+  letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 1rem;
+}
+.section-lead { font-size: 1.08rem; max-width: 44rem; color: var(--ink-soft); margin: 0 0 2.5rem; }
+.section-dark .section-lead, .section-navy .section-lead { color: rgba(255,255,255,.72); }
+
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal-right { opacity: 0; transform: translateX(40px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.reveal-left.in, .reveal-right.in { opacity: 1; transform: none; }
+
+/* About */
+.about-grid {
+  display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 5vw, 4rem); align-items: center;
+}
+.about-copy p { font-size: 1.05rem; color: var(--ink-soft); margin: 0 0 1.1rem; }
+.about-mission {
+  margin-top: 1.5rem; padding: 1.25rem 1.4rem; border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(4,107,210,.08), rgba(255,105,0,.08));
+  border: 1px solid var(--line); font-weight: 600; color: var(--ink);
+}
+.viz-panel {
+  position: relative; min-height: 420px; border-radius: 24px; overflow: hidden;
+  background: linear-gradient(160deg, #0b1d3d, #071428);
+  border: 1px solid rgba(255,255,255,.1); box-shadow: var(--shadow);
+}
+#about-canvas { width: 100%; height: 100%; position: absolute; inset: 0; }
+
+/* Benefits */
+.benefit-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;
+}
+.benefit-card {
+  background: #fff; border: 1px solid rgba(4,107,210,.12); border-radius: 20px;
+  padding: 1.4rem 1.2rem 1.5rem; text-align: center;
+  box-shadow: 0 10px 30px rgba(15, 40, 80, .06);
+  transform-style: preserve-3d; transition: box-shadow .3s, border-color .3s;
+  position: relative; overflow: hidden;
+}
+.benefit-card::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px;
+  background: linear-gradient(135deg, transparent, rgba(4,107,210,.35), rgba(255,105,0,.45), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity .35s;
+}
+.benefit-card:hover::before { opacity: 1; }
+.benefit-card img { width: 72px; height: 72px; object-fit: contain; margin: 0 auto 1rem; }
+.benefit-card h3 { font-family: var(--font-display); font-size: 1.05rem; margin: 0 0 .55rem; color: var(--blue-logo); }
+.benefit-card p { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+.benefit-icon-fallback {
+  width: 64px; height: 64px; margin: 0 auto 1rem; border-radius: 16px;
+  display: grid; place-items: center;
+  background: linear-gradient(135deg, rgba(4,107,210,.12), rgba(255,105,0,.12));
+  color: var(--blue);
+}
+
+/* Courses */
+.course-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 1.25rem; }
+.course-card {
+  border-radius: 24px; padding: clamp(1.5rem, 3vw, 2.2rem);
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+  backdrop-filter: blur(12px); position: relative; overflow: hidden;
+  transition: transform .4s var(--ease), border-color .3s, box-shadow .3s;
+}
+.course-card:hover { transform: translateY(-6px); border-color: rgba(255,105,0,.45); box-shadow: 0 24px 50px rgba(0,0,0,.35); }
+.course-card.featured {
+  background:
+    linear-gradient(145deg, rgba(4,107,210,.22), rgba(255,105,0,.1) 55%, rgba(255,255,255,.03));
+}
+.course-card h3 { font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 1.9rem); margin: 0 0 .75rem; }
+.course-list { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; gap: .65rem; }
+.course-list li {
+  display: flex; gap: .7rem; align-items: flex-start; color: rgba(255,255,255,.82); font-size: .98rem;
+}
+.course-list li::before {
+  content: ""; flex: 0 0 8px; height: 8px; margin-top: .45rem; border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--orange));
+}
+.offer-list { display: grid; gap: .55rem; margin: 1rem 0 0; }
+.offer-list span {
+  display: block; padding: .7rem .9rem; border-radius: 12px;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); font-size: .92rem;
+}
+
+/* Curriculum */
+.curriculum-layout { display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem; }
+.curriculum-rail {
+  position: sticky; top: calc(var(--nav-h) + 1rem); align-self: start;
+  display: grid; gap: .4rem; max-height: calc(100vh - var(--nav-h) - 2rem); overflow: auto;
+  padding-right: .25rem;
+}
+.rail-dot {
+  display: flex; align-items: center; gap: .65rem; padding: .55rem .7rem; border-radius: 12px;
+  border: 1px solid transparent; background: transparent; color: var(--ink-soft);
+  cursor: pointer; text-align: left; font-size: .82rem; font-weight: 600; transition: .25s;
+}
+.rail-dot:hover, .rail-dot.active {
+  background: rgba(4,107,210,.08); border-color: rgba(4,107,210,.2); color: var(--blue-logo);
+}
+.rail-dot .num {
+  width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center;
+  background: var(--mist); color: var(--blue); font-size: .72rem; flex-shrink: 0;
+}
+.rail-dot.active .num { background: linear-gradient(135deg, var(--blue), var(--orange)); color: #fff; }
+.module-list { display: grid; gap: .75rem; }
+.module {
+  border-radius: 18px; background: #fff; border: 1px solid rgba(4,107,210,.12);
+  overflow: hidden; box-shadow: 0 8px 24px rgba(15,40,80,.04);
+}
+.module-head {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1.1rem 1.25rem; background: transparent; border: none; cursor: pointer; text-align: left;
+}
+.module-head h3 { margin: 0; font-family: var(--font-display); font-size: 1.05rem; color: var(--ink); }
+.module-head .meta { color: var(--ink-soft); font-size: .82rem; }
+.module-head .chev {
+  width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--mist); transition: transform .3s;
+}
+.module.open .chev { transform: rotate(180deg); background: rgba(255,105,0,.12); color: var(--orange); }
+.module-body {
+  display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s var(--ease);
+}
+.module.open .module-body { grid-template-rows: 1fr; }
+.module-body-inner { overflow: hidden; }
+.module-body ul {
+  list-style: none; margin: 0; padding: 0 1.25rem 1.25rem; display: grid; gap: .45rem;
+}
+.module-body li {
+  padding: .65rem .85rem; border-radius: 10px; background: var(--mist); font-size: .92rem; color: var(--ink-soft);
+  border-left: 3px solid var(--blue);
+}
+.module-body li.lab { border-left-color: var(--orange); }
+
+/* Trainer */
+.trainer-grid {
+  display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem, 5vw, 3.5rem); align-items: center;
+}
+.trainer-photo-wrap {
+  position: relative; border-radius: 28px; overflow: hidden;
+  background: linear-gradient(160deg, #0c2348, #081428);
+  border: 1px solid rgba(255,255,255,.12); min-height: 480px;
+  display: grid; place-items: end center;
+}
+.trainer-photo-wrap img { width: min(360px, 100%); object-fit: contain; position: relative; z-index: 1; }
+.trainer-photo-wrap canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .7; }
+.cred-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; margin-top: 1.5rem; }
+.cred {
+  padding: 1rem 1.1rem; border-radius: 16px;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+}
+.cred h4 { margin: 0 0 .35rem; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+.cred p, .cred ul { margin: 0; font-size: .92rem; color: rgba(255,255,255,.82); padding: 0; list-style: none; }
+.cred li + li { margin-top: .25rem; }
+.trainer-bio { color: rgba(255,255,255,.78); font-size: 1.02rem; }
+
+/* Learning experience */
+.learn-track {
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, 1fr);
+  gap: 1rem; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.learn-card {
+  scroll-snap-align: start; border-radius: 20px; padding: 1.5rem;
+  background: #fff; border: 1px solid rgba(4,107,210,.12);
+  box-shadow: 0 12px 32px rgba(15,40,80,.06);
+  transform: perspective(800px) rotateY(-4deg); transition: transform .35s var(--ease);
+  min-height: 180px;
+}
+.learn-card:hover { transform: perspective(800px) rotateY(0deg) translateY(-4px); }
+.learn-card .step {
+  font-family: var(--font-display); font-size: .8rem; color: var(--orange); letter-spacing: .12em; font-weight: 700;
+}
+.learn-card h3 { font-family: var(--font-display); margin: .5rem 0 .4rem; font-size: 1.15rem; }
+.learn-card p { margin: 0; color: var(--ink-soft); font-size: .92rem; }
+
+/* Fee */
+.fee-panel {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+}
+.fee-card {
+  border-radius: 24px; padding: 1.8rem; background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.fee-price {
+  font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
+  background: linear-gradient(135deg, #fff, var(--amber)); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.batch-grid { display: grid; gap: .65rem; margin: 1.2rem 0; }
+.batch-row {
+  display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  padding: .8rem 1rem; border-radius: 12px; background: rgba(255,255,255,.04); font-size: .92rem;
+}
+.batch-row strong { color: var(--amber); }
+
+/* Reviews */
+.reviews-wrap { position: relative; }
+.reviews-track {
+  display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 1rem .25rem 1.5rem; cursor: grab; -webkit-overflow-scrolling: touch;
+}
+.reviews-track.dragging { cursor: grabbing; scroll-snap-type: none; }
+.review-slide {
+  flex: 0 0 min(340px, 82vw); scroll-snap-align: center;
+  border-radius: 18px; overflow: hidden; background: #0a1830;
+  border: 1px solid rgba(255,255,255,.1);
+  transform: perspective(900px) rotateY(0deg); transition: transform .35s;
+  box-shadow: 0 18px 40px rgba(0,0,0,.3);
+}
+.review-slide img { width: 100%; height: 220px; object-fit: cover; object-position: top; background: #111; }
+.reviews-hint { color: rgba(255,255,255,.55); font-size: .85rem; margin-top: .25rem; }
+
+/* Enquiry */
+.enquiry-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(1.5rem, 4vw, 3rem); }
+.contact-stack { display: grid; gap: .85rem; margin-top: 1.5rem; }
+.contact-item {
+  display: flex; gap: .9rem; align-items: flex-start; padding: 1rem 1.1rem; border-radius: 16px;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+}
+.contact-item strong { display: block; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin-bottom: .2rem; }
+.contact-item a { color: #fff; }
+.form-card {
+  background: rgba(255,255,255,.96); color: var(--ink); border-radius: 24px; padding: clamp(1.3rem, 3vw, 2rem);
+  box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,.2);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
+.field { display: grid; gap: .4rem; margin-bottom: .9rem; }
+.field label { font-size: .82rem; font-weight: 700; color: var(--ink); }
+.field input, .field textarea {
+  width: 100%; border: 1px solid rgba(4,107,210,.18); border-radius: 12px;
+  padding: .85rem 1rem; background: #fff; color: var(--ink); transition: border-color .2s, box-shadow .2s;
+}
+.field input:focus, .field textarea:focus {
+  border-color: var(--blue); box-shadow: 0 0 0 4px rgba(4,107,210,.12); outline: none;
+}
+.field.error input, .field.error textarea { border-color: #d93025; }
+.field .err { color: #d93025; font-size: .78rem; min-height: 1em; }
+.form-status { margin-top: .75rem; font-size: .92rem; min-height: 1.4em; }
+.form-status.ok { color: #0f7b3d; }
+.form-status.bad { color: #d93025; }
+.form-note { font-size: .82rem; color: var(--ink-soft); margin-top: .75rem; }
+
+/* Footer */
+.footer {
+  background: #030914; color: rgba(255,255,255,.7); padding: 3.5rem clamp(1.2rem, 4vw, 4rem) 2rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer-grid {
+  width: min(1180px, 100%); margin: 0 auto;
+  display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 2rem;
+}
+.footer h4 { color: #fff; font-family: var(--font-display); margin: 0 0 1rem; }
+.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; }
+.footer a:hover { color: #fff; }
+.footer-bottom {
+  width: min(1180px, 100%); margin: 2rem auto 0; padding-top: 1.25rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+  display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; font-size: .85rem;
+}
+.socials { display: flex; gap: .65rem; flex-wrap: wrap; }
+.socials a {
+  width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); color: #fff;
+}
+.wa-float {
+  position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 850;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #25D366; color: #fff; display: grid; place-items: center;
+  box-shadow: 0 12px 30px rgba(37,211,102,.4); transition: transform .25s;
+}
+.wa-float:hover { transform: scale(1.08); }
+
+/* Mobile nav */
+.nav-overlay {
+  position: fixed; inset: 0; background: rgba(3,9,20,.72); z-index: 880; opacity: 0; pointer-events: none; transition: .3s;
+}
+.nav-overlay.open { opacity: 1; pointer-events: auto; }
+.mobile-drawer {
+  position: fixed; top: 0; right: 0; width: min(320px, 88vw); height: 100%; z-index: 890;
+  background: #081428; padding: 5.5rem 1.4rem 2rem; transform: translateX(105%); transition: transform .4s var(--ease);
+  border-left: 1px solid rgba(255,255,255,.08);
+}
+.mobile-drawer.open { transform: none; }
+.mobile-drawer a {
+  display: block; color: #fff; padding: .95rem 0; border-bottom: 1px solid rgba(255,255,255,.08);
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .benefit-grid { grid-template-columns: repeat(3, 1fr); }
+  .about-grid, .trainer-grid, .course-grid, .fee-panel, .enquiry-grid, .curriculum-layout, .footer-grid {
+    grid-template-columns: 1fr;
+  }
+  .curriculum-rail { position: relative; top: 0; max-height: none; grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; }
+}
+@media (max-width: 780px) {
+  .nav-links { display: none; }
+  .nav-toggle { display: grid; place-items: center; }
+  .benefit-grid { grid-template-columns: 1fr 1fr; }
+  .cred-grid, .form-row { grid-template-columns: 1fr; }
+  .hero { align-items: center; padding-bottom: 5rem; }
+  .trainer-photo-wrap { min-height: 380px; }
+}
+@media (max-width: 520px) {
+  .benefit-grid { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; scroll-behavior: auto !important;
+  }
+  .reveal, .reveal-left, .reveal-right { opacity: 1; transform: none; }
+  .hero h1 .word { opacity: 1; filter: none; transform: none; animation: none; }
+  .hero-grid, .hero-scan { animation: none; }
+}
+
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div id="progress" aria-hidden="true"></div>
+<div id="loader" role="status" aria-live="polite">
+  <div class="loader-inner">
+    <img class="loader-logo" src="https://netappguru.com/wp-content/uploads/2025/06/3.png" alt="NetApp Guru" width="280" height="74" />
+    <div class="loader-bar"><span></span></div>
+    <p class="loader-text">Loading NetApp Guru</p>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <a class="nav-brand" href="#home" aria-label="NetApp Guru home">
+    <img src="https://netappguru.com/wp-content/uploads/2025/06/3.png" alt="NetApp Guru" width="160" height="42" />
+  </a>
+  <nav aria-label="Primary">
+    <ul class="nav-links">
+      <li><a href="#home" data-nav>Home</a></li>
+      <li><a href="#about" data-nav>About</a></li>
+      <li><a href="#trainer" data-nav>About Trainer</a></li>
+      <li><a href="#courses" data-nav>Courses</a></li>
+      <li><a href="#fee" data-nav>Course Fee</a></li>
+      <li><a href="#enquiry" data-nav>Enquiry</a></li>
+      <li><a href="#reviews" data-nav>Training Review</a></li>
+      <li><a class="nav-cta magnetic" href="https://rzp.io/rzp/2sZeD6p" target="_blank" rel="noopener noreferrer">Enroll Today</a></li>
+    </ul>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+<div class="nav-overlay" id="navOverlay" hidden></div>
+<aside class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#trainer">About Trainer</a>
+  <a href="#courses">Courses</a>
+  <a href="#fee">Course Fee</a>
+  <a href="#enquiry">Enquiry</a>
+  <a href="#reviews">Training Review</a>
+  <a href="https://rzp.io/rzp/2sZeD6p" target="_blank" rel="noopener noreferrer">Enroll Today</a>
+  <a href="https://wa.link/9kbaf7" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+</aside>
+
+<main id="main">
+  <section class="hero" id="home" aria-label="Hero">
+    <canvas id="hero-fallback" aria-hidden="true"></canvas>
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-scan" aria-hidden="true"></div>
+    <div class="hero-content" id="heroContent">
+      <div class="hero-kicker"><i></i> NetApp Online Training Platform</div>
+      <img class="hero-logo reveal" src="https://netappguru.com/wp-content/uploads/2025/06/3.png" alt="NetApp Guru" width="320" height="85" />
+      <p class="hero-kicker" style="letter-spacing:.08em;text-transform:none;font-size:1rem;color:rgba(255,255,255,.85)">NetApp Storage Training</p>
+      <h1 id="heroTitle" aria-label="Learn NetApp Step by Step">
+        <span class="word" style="animation-delay:.15s">Learn</span>
+        <span class="word" style="animation-delay:.28s">NetApp</span>
+        <span class="word" style="animation-delay:.42s">Step</span>
+        <span class="word" style="animation-delay:.56s">by</span>
+        <span class="word" style="animation-delay:.70s">Step</span>
+      </h1>
+      <p class="hero-lead reveal">NetApp ONTAP Course. Start your NetApp Learning journey.</p>
+      <div class="hero-meta reveal">
+        <div class="meta-chip"><strong>25hrs</strong> Course Duration</div>
+        <div class="meta-chip"><strong>Q&amp;A</strong> Session Support</div>
+        <div class="meta-chip">Well Experienced Trainer</div>
+      </div>
+      <div class="hero-actions reveal">
+        <a class="btn btn-primary magnetic" href="https://rzp.io/rzp/2sZeD6p" target="_blank" rel="noopener noreferrer">Enroll Today</a>
+        <a class="btn btn-ghost magnetic" href="https://rzp.io/rzp/ldb8TMx" target="_blank" rel="noopener noreferrer">Recording Video — Complete Course</a>
+        <a class="btn btn-ghost magnetic" href="https://chat.whatsapp.com/JY021Lar5QRI6K36ramOjE" target="_blank" rel="noopener noreferrer">Want to join WhatsApp Group</a>
+      </div>
+      <button class="scroll-cue" type="button" data-scroll-to="#about">
+        <span class="mouse" aria-hidden="true"></span>
+        Scroll to About
+      </button>
+    </div>
+  </section>
+
+  <section class="section section-mist" id="about">
+    <div class="container about-grid">
+      <div class="about-copy reveal-left">
+        <div class="section-eyebrow">About</div>
+        <h2 class="section-title">Welcome to NetApp Guru</h2>
+        <p>Your Online Platform for mastering NetApp technologies and building a strong foundation in data storage solutions. I'm Kumar Satyendra, a certified NetApp professional with over 16 years of hands-on experience in enterprise storage, cloud integration, and data management.</p>
+        <p>At NetApp Guru, my mission is to simplify complex storage concepts through practical, real-world training. Whether you’re preparing for NetApp certifications or looking to advance your IT career, you’ll find step-by-step classes, lab exercises, and expert guidance tailored to all skill levels.</p>
+        <p>Join our growing community of storage professionals and take your NetApp knowledge to the next level.</p>
+        <div class="about-mission">Let’s learn. Let’s grow. Let’s build smarter storage solutions – together.</div>
+        <p style="margin-top:1.2rem;font-weight:700;color:var(--blue-logo)">100% Lab Practice.</p>
+        <p style="margin:0.4rem 0 0;font-weight:600">Build your NetApp Storage Career with great learning</p>
+        <p style="margin:.35rem 0 0">We are here to guide you to grow in data storage industry</p>
+      </div>
+      <div class="viz-panel reveal-right" aria-hidden="true">
+        <canvas id="about-canvas"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light" id="benefits" aria-labelledby="benefits-title">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">About</div>
+        <h2 class="section-title" id="benefits-title">Build your NetApp Storage Career with great learning</h2>
+        <p class="section-lead">We are here to guide you to grow in data storage industry</p>
+      </div>
+      <div class="benefit-grid">
+        <article class="benefit-card tilt reveal" style="transition-delay:.05s">
+          <img src="https://netappguru.com/wp-content/uploads/2025/05/Screenshot-2025-05-13-at-10.26.53%E2%80%AFAM.png" alt="" width="72" height="72" loading="lazy" />
+          <h3>Competitive Fee</h3>
+          <p>We have less fee compare to other institute with more study topics</p>
+        </article>
+        <article class="benefit-card tilt reveal" style="transition-delay:.1s">
+          <img src="https://netappguru.com/wp-content/uploads/2025/05/Screenshot-2025-05-13-at-10.27.06%E2%80%AFAM.png" alt="" width="72" height="72" loading="lazy" />
+          <h3>Student Experience</h3>
+          <p>We provide Online and interactive trainings with 100% LAB</p>
+        </article>
+        <article class="benefit-card tilt reveal" style="transition-delay:.15s">
+          <img src="https://netappguru.com/wp-content/uploads/2025/05/Screenshot-2025-05-13-at-10.27.19%E2%80%AFAM.png" alt="" width="72" height="72" loading="lazy" />
+          <h3>Excellent Training</h3>
+          <p>We provide excellent and job orient training on latest version on ONTAP</p>
+        </article>
+        <article class="benefit-card tilt reveal" style="transition-delay:.2s">
+          <img src="https://netappguru.com/wp-content/uploads/2025/05/Screenshot-2025-05-13-at-10.27.27%E2%80%AFAM-1.png" alt="" width="72" height="72" loading="lazy" />
+          <h3>Well Trained Faculty</h3>
+          <p>NetApp Trainer has well experience on NetApp Product</p>
+        </article>
+        <article class="benefit-card tilt reveal" style="transition-delay:.25s">
+          <div class="benefit-icon-fallback" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/><path d="M7 7h.01M7 17h.01"/></svg>
+          </div>
+          <h3>100% Lab Practice</h3>
+          <p>100% Lab Practice.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-navy" id="courses">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">Courses</div>
+        <h2 class="section-title">NetApp Storage Training — Live Classes</h2>
+        <p class="section-lead">Recorded Video Course -For those who dont have time to attend live classes</p>
+      </div>
+      <div class="course-grid">
+        <article class="course-card featured reveal">
+          <h3>NetApp ONTAP Storage Administrator</h3>
+          <ul class="course-list">
+            <li>NetApp ONTAP Administration</li>
+            <li>ONTAP Protection Administration</li>
+            <li>Recorded Videos will be shared</li>
+            <li>ANF ( Azure) &amp; FSx (AWS) and CVS ( GCP)</li>
+            <li>Cloud Volume ONTAP Administration</li>
+            <li>ONTAP 7Mode to C-Mode Migration</li>
+          </ul>
+          <div style="display:flex;flex-wrap:wrap;gap:.75rem">
+            <a class="btn btn-primary magnetic" href="https://rzp.io/rzp/2sZeD6p" target="_blank" rel="noopener noreferrer">Enroll Today</a>
+            <a class="btn btn-ghost magnetic" href="#curriculum">Explore Curriculum</a>
+          </div>
+        </article>
+        <article class="course-card reveal" style="transition-delay:.1s">
+          <h3>Recorded Video Course</h3>
+          <p style="color:rgba(255,255,255,.75);margin-top:0">For those who dont have time to attend live classes</p>
+          <ul class="course-list">
+            <li>NetApp Storage Admin Complete Course -25hrs.</li>
+            <li>Softwares &amp; 100% LAB Setup with course</li>
+            <li>No Coding knowledge needed</li>
+          </ul>
+          <a class="btn btn-blue magnetic" href="https://rzp.io/rzp/ldb8TMx" target="_blank" rel="noopener noreferrer">Recording Videos: Buy Now</a>
+          <div style="margin-top:1.5rem">
+            <h4 style="margin:0 0 .6rem;font-family:var(--font-display)">Course Offered</h4>
+            <div class="offer-list">
+              <span>NetApp Storage</span>
+              <span>Storage Fundamental</span>
+              <span>NetApp Storage Advanced</span>
+              <span>Pure Storage</span>
+              <span>Storage Automation</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light" id="curriculum">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">Courses</div>
+        <h2 class="section-title">NetApp Storage Training -Live Classes Course Syllabus</h2>
+        <p class="section-lead">No Coding knowledge needed</p>
+      </div>
+      <div class="curriculum-layout">
+        <div class="curriculum-rail" role="tablist" aria-label="Curriculum modules">
+          <button class="rail-dot" type="button" data-target="mod-01" aria-controls="mod-01"><span class="num">01</span><span>NetApp Product Portfolio</span></button><button class="rail-dot" type="button" data-target="mod-02" aria-controls="mod-02"><span class="num">02</span><span>ONTAP Hardware Platforms</span></button><button class="rail-dot" type="button" data-target="mod-03" aria-controls="mod-03"><span class="num">03</span><span>ONTAP Architecture</span></button><button class="rail-dot" type="button" data-target="mod-04" aria-controls="mod-04"><span class="num">04</span><span>ONTAP Installation Task and Post Installation</span></button><button class="rail-dot" type="button" data-target="mod-05" aria-controls="mod-05"><span class="num">05</span><span>Management Interfaces</span></button><button class="rail-dot" type="button" data-target="mod-06" aria-controls="mod-06"><span class="num">06</span><span>Physical Resources and Caching</span></button><button class="rail-dot" type="button" data-target="mod-07" aria-controls="mod-07"><span class="num">07</span><span>Logical Resources</span></button><button class="rail-dot" type="button" data-target="mod-08" aria-controls="mod-08"><span class="num">08</span><span>NetApp ONTAP Networking</span></button><button class="rail-dot" type="button" data-target="mod-09" aria-controls="mod-09"><span class="num">09</span><span>NAS Protocols</span></button><button class="rail-dot" type="button" data-target="mod-10" aria-controls="mod-10"><span class="num">10</span><span>SAN Protocols</span></button><button class="rail-dot" type="button" data-target="mod-11" aria-controls="mod-11"><span class="num">11</span><span>Snapshots</span></button><button class="rail-dot" type="button" data-target="mod-12" aria-controls="mod-12"><span class="num">12</span><span>Data Protection</span></button><button class="rail-dot" type="button" data-target="mod-13" aria-controls="mod-13"><span class="num">13</span><span>NetApp Cloud Storage</span></button><button class="rail-dot" type="button" data-target="mod-14" aria-controls="mod-14"><span class="num">14</span><span>Storage Performance</span></button><button class="rail-dot" type="button" data-target="mod-15" aria-controls="mod-15"><span class="num">15</span><span>ONTAP Upgrade</span></button><button class="rail-dot" type="button" data-target="mod-16" aria-controls="mod-16"><span class="num">16</span><span>Interview Preparation</span></button>
+        </div>
+        <div class="module-list">
+          
+<article class="module reveal" id="mod-01">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #1 · 6 lectures</div>
+      <h3>NetApp Product Portfolio</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">NetApp ONTAP Platforms.</li><li class="">NetApp SANtricity Platforms.</li><li class="">Element OS Platforms</li><li class="">StorageGRID WebScale</li><li class="">Converged Infrastructure.</li><li class="">NetApp Cloud Storage Solutions (Cloud Volume ONTAP, ANF, NetApp Private Storage, Cloud Volume Services)</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-02">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #2 · 4 lectures</div>
+      <h3>ONTAP Hardware Platforms</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">AFF Platform Overview and Tech Specs.</li><li class="">FAS Platform Overview and Tech Specs</li><li class="">Disk Shelves and Cabling.</li><li class="">NetApp Documentation and Hardware Universe</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-03">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #3 · 4 lectures</div>
+      <h3>ONTAP Architecture</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">Legacy ONTAP 7-Mode Architecture.</li><li class="">Cluster Mode Hardware Architecture.</li><li class="">Cluster Network and Management Network.</li><li class="">Data Networks Management.</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-04">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #4 · 4 lectures</div>
+      <h3>ONTAP Installation Task and Post Installation</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="lab">Command Line Setup - The Cluster Setup Wizard. (LAB)</li><li class="lab">License (LAB)</li><li class="lab">AutoSupport (LAB)</li><li class="lab">Network Time Protocol (LAB)</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-05">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #5 · 4 lectures</div>
+      <h3>Management Interfaces</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">Management Interfaces Introduction</li><li class="lab">ONTAP System Manager. (LAB)</li><li class="lab">The Command Line Interface (LAB)</li><li class="">Service Processor</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-06">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #6 · 7 lectures</div>
+      <h3>Physical Resources and Caching</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">Introduction</li><li class="">Disk Shelf Numbering.</li><li class="">Disk Ownership</li><li class="">RAID Groups and Aggregates</li><li class="lab">Disks, Aggregates and RAID Groups Configuration (LAB)</li><li class="">Advanced Disk Partitioning</li><li class="">WAFL and the System Memory Cache</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-07">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #7 · 6 lectures</div>
+      <h3>Logical Resources</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">Storage Virtual Machines (SVM)</li><li class="lab">Storage Virtual Machines Configuration (LAB)</li><li class="">Flexible Volumes</li><li class="lab">Flexible Volumes Configuration (LAB)</li><li class="">Qtree & Quota</li><li class="lab">Qtree & Quota Configuration (LAB)</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-08">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #8 · 10 lectures</div>
+      <h3>NetApp ONTAP Networking</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">Physical Ports.</li><li class="">Interface Groups (Ifgrp)</li><li class="">ONTAP VLANs</li><li class="">Logical Interface (LIF)</li><li class="">Broadcast Domains</li><li class="">Failover Groups & Failover Policy</li><li class="lab">Broadcast Domain Configuration (LAB)</li><li class="lab">Interface Group Configuration (LAB)</li><li class="lab">VLAN Configuration (LAB)</li><li class="lab">Logical Interface Configuration (LAB)</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-09">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #9 · 6 lectures</div>
+      <h3>NAS Protocols</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">NFS Name Services.</li><li class="lab">Export Policies (LAB)</li><li class="lab">Export Policy Rule (LAB)</li><li class="lab">NFS Configuration for Linux (LAB)</li><li class="lab">CIFS Creation on SVM (LAB)</li><li class="lab">CIFS Share mapping in Windows Server (LAB)</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-10">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #10 · 8 lectures</div>
+      <h3>SAN Protocols</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">ONTAP SAN Implementation</li><li class="">ISCSI creation on SVM</li><li class="lab">ISCSI discovery on Server (LAB)</li><li class="lab">ISCSI Volume and LUN creation (LAB)</li><li class="lab">Igroup creation and LUN mapping (LAB)</li><li class="lab">Rescan the LUN and mount on Server(LAB)</li><li class="">Fibre Channel - Alias, Zone and configuration.</li><li class="">Multipathing</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-11">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #11 · 8 lectures</div>
+      <h3>Snapshots</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">Snapshot Concept.</li><li class="">Snapshot Job Cron Schedule</li><li class="">Snapshot policy</li><li class="">Snapshot Restores</li><li class="">FlexClone</li><li class="lab">Snapshot Defaults and Policies (LAB)</li><li class="lab">Restoring Snapshots from Server (LAB)</li><li class="lab">FlexClone Configuration (LAB)</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-12">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #12 · 10 lectures</div>
+      <h3>Data Protection</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">The SnapMirror Engine</li><li class="">SnapMirror Synchronous and Asynchronous</li><li class="lab">Intercluster LIF Creation for Replication (LAB)</li><li class="lab">Cluster Peering (LAB)</li><li class="lab">SVM Peering and Acceptance Peering (LAB)</li><li class="lab">Snapmirror Lebel and snapmirror Policy (LAB)</li><li class="lab">Snapmirror (DR) Setup (LAB)</li><li class="lab">SnapVault (Backup) Setup (LAB)</li><li class="lab">Snapmirror creation and initialization (LAB)</li><li class="lab">Snapmirror quiesce, Update and break (LAB)</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-13">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #13 · 8 lectures</div>
+      <h3>NetApp Cloud Storage</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="lab">BlueXp (LAB)</li><li class="lab">Cloud Volume ONTAP in AWS (LAB)</li><li class="lab">Cloud Volume ONTAP in Azure (LAB)</li><li class="lab">Cloud Volume ONTAP in GCP (LAB)</li><li class="lab">On-Prem Netapp discovery in BlueXp (LAB)</li><li class="lab">Azure NetApp File (ANF) (LAB)</li><li class="lab">DR setup using BlueXp in Cloud and in OnPrem NetApp (LAB)</li><li class="lab">Snapmirror break and resync and reverse resync (LAB)</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-14">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #14 · 5 lectures</div>
+      <h3>Storage Performance</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">IOPS</li><li class="">Throughput</li><li class="">Latency</li><li class="">Performance Measuring Tools</li><li class="">How to Improve Storage Performance</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-15">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #15 · 8 lectures</div>
+      <h3>ONTAP Upgrade</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">Types of Upgrade</li><li class="">Upgrade Advisor</li><li class="">Pre-Check</li><li class="">Image download</li><li class="">Image upload to cluster</li><li class="">Perform upgrade and monitor during upgrade</li><li class="">Boot ONTAP from secondary Image</li><li class="">Post check</li>
+  </ul></div></div>
+</article>
+<article class="module reveal" id="mod-16">
+  <button class="module-head" type="button" aria-expanded="false">
+    <div>
+      <div class="meta">Module #16 · 4 lectures</div>
+      <h3>Interview Preparation</h3>
+    </div>
+    <span class="chev" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </span>
+  </button>
+  <div class="module-body"><div class="module-body-inner"><ul>
+    <li class="">Profile Preparation</li><li class="">Job search Strategy</li><li class="">Strategy to get high salary</li><li class="">Training Feeback and Course Completion Certificate share.</li>
+  </ul></div></div>
+</article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="trainer">
+    <div class="container trainer-grid">
+      <div class="trainer-photo-wrap reveal-left">
+        <canvas id="trainer-canvas" aria-hidden="true"></canvas>
+        <img src="https://netappguru.com/wp-content/uploads/2025/05/ChatGPT_Image_May_26__2025__10_19_43_PM-removebg-preview.png" alt="Kumar Satyendra — NetApp Guru instructor" width="408" height="612" loading="lazy" />
+      </div>
+      <div class="reveal-right">
+        <div class="section-eyebrow">About Trainer</div>
+        <h2 class="section-title">Instructor Name : Kumar Satyendra</h2>
+        <p class="trainer-bio">Kumar Satyendra has 16 years of total IT experience including 12 years in NetApp Storage administration. He has worked with most IT giant companies as a NetApp FSE, NetApp PSE, NetApp Storage Administrator, NetApp SME, NetApp Architect and Lead for Storage and Backup team.</p>
+        <div class="cred-grid">
+          <div class="cred">
+            <h4>Education</h4>
+            <ul>
+              <li>B.Tech – (CSE).</li>
+              <li>MBA – (IT) .</li>
+            </ul>
+          </div>
+          <div class="cred">
+            <h4>Certifications</h4>
+            <ul>
+              <li>NetApp Certified Data Administrator ( NCDA).</li>
+              <li>NetApp Accredited Service Engineer ( ASE-3).</li>
+              <li>EMC VMAX, Specialist, System Administrator.</li>
+              <li>Azure Certified Administrator AZ-104.</li>
+              <li>Microsoft Certified Professional (MCP).</li>
+            </ul>
+          </div>
+          <div class="cred">
+            <h4>Technology</h4>
+            <p>NetApp, Pure Storage, EMC &amp; Backup Tools.</p>
+          </div>
+          <div class="cred">
+            <h4>Experience</h4>
+            <p>Total 16 years in IT, including 12 years in Storage.</p>
+          </div>
+          <div class="cred">
+            <h4>Company Name</h4>
+            <ul>
+              <li>Wipro Technologies,</li>
+              <li>Tech Mahindra,</li>
+              <li>HCL Technologies,</li>
+              <li>Accenture</li>
+              <li>DRDO ( Ministry of Defense, Gov. of India) .</li>
+            </ul>
+          </div>
+          <div class="cred">
+            <h4>Freelance</h4>
+            <ul>
+              <li>1000+ Interview taken as technical panalist</li>
+              <li>Trained 200+ candidates in private classes.</li>
+              <li>10+ corporate training.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cred" style="margin-top:1rem">
+          <h4>Profile</h4>
+          <p>Worked as a : System Administrator, NetApp FSE, NetApp PSE, NetApp Storage Administrator, NetApp SME, NetApp Storage Architect., Lead – Storage &amp; Backup Team., Manager- Storage &amp; Backup Track.</p>
+        </div>
+        <div style="margin-top:1.5rem">
+          <a class="btn btn-primary magnetic" href="https://rzp.io/rzp/2sZeD6p" target="_blank" rel="noopener noreferrer">Join NetApp Training</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-mist" id="access">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">Home</div>
+        <h2 class="section-title">Access includes</h2>
+        <p class="section-lead">25hrs course duration · Q&amp;A Session support</p>
+      </div>
+      
+      <div class="learn-track" tabindex="0" aria-label="Course access inclusions">
+        <article class="learn-card reveal"><div class="step">01</div><h3>25+ detailed lectures</h3></article>
+        <article class="learn-card reveal" style="transition-delay:.05s"><div class="step">02</div><h3>5 Days in a week class</h3></article>
+        <article class="learn-card reveal" style="transition-delay:.1s"><div class="step">03</div><h3>Recorded Videos will be shared</h3></article>
+        <article class="learn-card reveal" style="transition-delay:.15s"><div class="step">04</div><h3>Lab will be provided</h3></article>
+        <article class="learn-card reveal" style="transition-delay:.2s"><div class="step">05</div><h3>Course Completion Certificate provided</h3></article>
+        <article class="learn-card reveal" style="transition-delay:.25s"><div class="step">06</div><h3>Interview Preperation</h3></article>
+        <article class="learn-card reveal" style="transition-delay:.3s"><div class="step">07</div><h3>Support — Q&amp;A Session</h3></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-navy" id="fee">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-eyebrow">Course Fee</div>
+        <h2 class="section-title">NetApp Storage — 30,000 INR</h2>
+        <p class="section-lead">Batch Timing Weekdays and Weekends</p>
+      </div>
+      <div class="fee-panel">
+        <div class="fee-card reveal">
+          <div class="fee-price">30,000 INR</div>
+          <p style="color:rgba(255,255,255,.75)">NetApp Storage</p>
+          <div class="batch-grid">
+            <div class="batch-row"><span>Weekdays Morning</span><strong>08:00 -09:00 IST</strong></div>
+            <div class="batch-row"><span>Weekdays Evening</span><strong>20:00 – 21:00 IST</strong></div>
+            <div class="batch-row"><span>Weekends Morning</span><strong>08:00 -10:00 IST</strong></div>
+          </div>
+          <h4 style="margin:1.2rem 0 .6rem;font-family:var(--font-display)">Upcoming Batch</h4>
+          <div class="batch-grid">
+            <div class="batch-row"><span>Morning Batch</span><strong>Not Available</strong></div>
+            <div class="batch-row"><span>Evening Batch</span><strong>15th April</strong></div>
+            <div class="batch-row"><span>Weekend Batch</span><strong>Not Available</strong></div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.4rem">
+            <a class="btn btn-primary magnetic" href="https://rzp.io/rzp/2sZeD6p" target="_blank" rel="noopener noreferrer">Enroll Now</a>
+            <a class="btn btn-ghost magnetic" href="https://rzp.io/rzp/EdoVTHpT" target="_blank" rel="noopener noreferrer">Pay &amp; Join Batch</a>
+          </div>
+        </div>
+        <div class="fee-card reveal" style="transition-delay:.1s">
+          <h3 style="font-family:var(--font-display);margin-top:0">Enrollment Form</h3>
+          <p style="color:rgba(255,255,255,.75)">Fill the form to join a batch. Batch Timing — Weekdays and Weekends.</p>
+          <a class="btn btn-blue magnetic" style="margin-top:1rem" href="https://docs.google.com/forms/d/e/1FAIpQLScNW_Pka-llMpIegFO5QXPJAKsgBaHvFk4FxtXfVBSpzI53qg/viewform?usp=header" target="_blank" rel="noopener noreferrer">Fill the form</a>
+          <div style="margin-top:2rem">
+            <h4 style="margin:0 0 .7rem;font-family:var(--font-display)">Course Offered</h4>
+            <div class="offer-list">
+              <span>NetApp Storage</span>
+              <span>Storage Fundamental</span>
+              <span>NetApp Storage Advanced</span>
+              <span>Pure Storage</span>
+              <span>Storage Automation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="reviews">
+    <div class="container reviews-wrap">
+      <div class="reveal">
+        <div class="section-eyebrow">Training Review</div>
+        <h2 class="section-title">Student's Reviews about Training</h2>
+        <p class="section-lead">Student's Reviews about Training</p>
+      </div>
+      <div class="reviews-track" id="reviewsTrack" aria-label="Student review gallery">
+        <figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Abhijit.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Abhijitt.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Ajee.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Ananth.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Ananth-1.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Anurag.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Dhruva.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Maviti-1.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Mayur.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Murthy.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Raghav.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Ravi.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Sandeep.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Sandeep-B.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Shreelatha-1.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Siddhu-1.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Venkata.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure><figure class="review-slide"><img src="https://netappguru.com/wp-content/uploads/2025/11/Vinod.jpg" alt="Student training review screenshot" loading="lazy" decoding="async" width="340" height="220" /></figure>
+      </div>
+      <p class="reviews-hint">Scroll horizontally to view review screenshots</p>
+    </div>
+  </section>
+
+  <section class="section section-navy" id="enquiry">
+    <div class="container enquiry-grid">
+      <div class="reveal-left">
+        <div class="section-eyebrow">Enquiry</div>
+        <h2 class="section-title">Enquiry</h2>
+        <p class="section-lead">For Corporate Enqury · Training · Talent Acquisition</p>
+        <div class="contact-stack">
+          <div class="contact-item">
+            <div>
+              <strong>For Training</strong>
+              <a href="mailto:netapptraining2526@gmail.com">netapptraining2526@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div>
+              <strong>For Corporate Enqury</strong>
+              <a href="mailto:query@netappguru.com">query@netappguru.com</a>
+              <div style="margin-top:.35rem"><a href="tel:+919642518547">+91 96425 18547</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div>
+              <strong>For Corporate Talent Acquisition</strong>
+              <a href="mailto:query@netappguru.com">query@netappguru.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div>
+              <strong>Location</strong>
+              <span>Hitech-City, Gachibowli, Hyderabad, Telangana - 500032</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:.75rem">
+          <a class="btn btn-primary magnetic" href="https://wa.link/9kbaf7" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a class="btn btn-ghost magnetic" href="https://chat.whatsapp.com/JY021Lar5QRI6K36ramOjE" target="_blank" rel="noopener noreferrer">WhatsApp Group</a>
+        </div>
+        <div class="viz-panel" style="margin-top:1.5rem;min-height:220px" aria-hidden="true">
+          <canvas id="enquiry-canvas"></canvas>
+        </div>
+      </div>
+      <div class="form-card reveal-right">
+        <h3 style="font-family:var(--font-display);margin:0 0 1rem;font-size:1.4rem">Enquiry Form</h3>
+        <form id="enquiryForm" novalidate>
+          <div class="form-row">
+            <div class="field" data-field="first">
+              <label for="firstName">First Name</label>
+              <input id="firstName" name="firstName" type="text" autocomplete="given-name" required placeholder="Name" />
+              <span class="err" aria-live="polite"></span>
+            </div>
+            <div class="field" data-field="last">
+              <label for="lastName">Last Name</label>
+              <input id="lastName" name="lastName" type="text" autocomplete="family-name" required placeholder="Name" />
+              <span class="err" aria-live="polite"></span>
+            </div>
+          </div>
+          <div class="field" data-field="mobile">
+            <label for="mobile">Mobile Number</label>
+            <input id="mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel" required placeholder="Mobile Number" />
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field" data-field="email">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="Email" />
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <div class="field" data-field="message">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" required placeholder="Message"></textarea>
+            <span class="err" aria-live="polite"></span>
+          </div>
+          <button class="btn btn-primary" type="submit" style="width:100%">Send Enquiry</button>
+          <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+          <p class="form-note">Submissions open WhatsApp with your enquiry details to the published NetApp Guru contact channel (<a href="https://wa.link/9kbaf7" target="_blank" rel="noopener noreferrer">wa.link/9kbaf7</a>). You can also email <a href="mailto:netapptraining2526@gmail.com">netapptraining2526@gmail.com</a> or use the original <a href="https://netappguru.com/enquiry/" target="_blank" rel="noopener noreferrer">Enquiry page</a>.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <img src="https://netappguru.com/wp-content/uploads/2025/06/3.png" alt="NetApp Guru" width="180" height="48" style="margin-bottom:1rem" loading="lazy" />
+      <p>NetApp Online Training Platform — Learn NetApp Step by Step.</p>
+      <div class="socials" style="margin-top:1rem">
+        <a href="https://www.facebook.com/profile.php?id=61572477103580" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H8v3h3v7h3v-7h3l1-3h-4V9c0-.6.4-1 1-1z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@NetAppGuru" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.8 15.5v-7l6.2 3.5-6.2 3.5z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/netappguru" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.9 8.7H3.6V20h3.3V8.7zM5.2 4A1.9 1.9 0 1 0 5.2 7.8 1.9 1.9 0 0 0 5.2 4zM20.4 20h-3.3v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V20H9.9V8.7h3.2v1.5h.1c.4-.8 1.5-1.8 3.2-1.8 3.4 0 4 2.2 4 5.1V20z"/></svg>
+        </a>
+        <a href="https://wa.link/9kbaf7" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.6L2 22l4.5-1.2A11 11 0 1 0 20.5 3.5zM12 20.2a9.1 9.1 0 0 1-4.6-1.3l-.3-.2-2.7.7.7-2.6-.2-.3A9.2 9.2 0 1 1 12 20.2zm5.3-6.9c-.3-.1-1.7-.8-2-.9s-.5-.1-.6.1-.7.9-.9 1-.3.2-.6.1a7.4 7.4 0 0 1-2.2-1.4 8.2 8.2 0 0 1-1.5-1.9c-.2-.3 0-.4.1-.6l.5-.6c.1-.2.1-.3 0-.5l-.9-2.1c-.2-.5-.5-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6a10.4 10.4 0 0 0 4 3.5c1.5.6 1.8.5 2.2.5.3-.1 1.1-.4 1.2-.9s.2-.8.1-.9-.2-.2-.5-.3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#trainer">About Trainer</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#fee">Course Fee</a></li>
+        <li><a href="#enquiry">Enquiry</a></li>
+        <li><a href="#reviews">Training Review</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Enqury :</h4>
+      <ul>
+        <li>For Training: <a href="mailto:netapptraining2526@gmail.com">netapptraining2526@gmail.com</a></li>
+        <li>For Corporate Training: <a href="mailto:query@netappguru.com">query@netappguru.com</a></li>
+        <li>For Corporate Talent Acquisition: <a href="mailto:query@netappguru.com">query@netappguru.com</a></li>
+        <li><a href="https://netappguru.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+        <li>Disclaimer</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>NetApp Guru · Hitech-City, Gachibowli, Hyderabad, Telangana - 500032</span>
+    <span>+91 96425 18547</span>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.link/9kbaf7" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11 11 0 0 0 3.2 17.6L2 22l4.5-1.2A11 11 0 1 0 20.5 3.5zM12 20.2a9.1 9.1 0 0 1-4.6-1.3l-.3-.2-2.7.7.7-2.6-.2-.3A9.2 9.2 0 1 1 12 20.2zm5.3-6.9c-.3-.1-1.7-.8-2-.9s-.5-.1-.6.1-.7.9-.9 1-.3.2-.6.1a7.4 7.4 0 0 1-2.2-1.4 8.2 8.2 0 0 1-1.5-1.9c-.2-.3 0-.4.1-.6l.5-.6c.1-.2.1-.3 0-.5l-.9-2.1c-.2-.5-.5-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.3.3-.9.9-.9 2.1s.9 2.4 1 2.6a10.4 10.4 0 0 0 4 3.5c1.5.6 1.8.5 2.2.5.3-.1 1.1-.4 1.2-.9s.2-.8.1-.9-.2-.2-.5-.3z"/></svg>
+</a>
+<script>
+(function () {
+  'use strict';
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+  /* ---------- Loader ---------- */
+  window.addEventListener('load', () => {
+    setTimeout(() => $('#loader')?.classList.add('hide'), reduced ? 100 : 1600);
+  });
+  setTimeout(() => $('#loader')?.classList.add('hide'), 4200);
+
+  /* ---------- Progress + nav scroll ---------- */
+  const progress = $('#progress');
+  const nav = $('#nav');
+  const sections = $$('main section[id]');
+  const navLinks = $$('[data-nav]');
+
+  function onScroll() {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const p = max > 0 ? (window.scrollY / max) * 100 : 0;
+    if (progress) progress.style.width = p + '%';
+    nav?.classList.toggle('scrolled', window.scrollY > 40);
+
+    let current = sections[0]?.id;
+    const y = window.scrollY + 120;
+    for (const s of sections) {
+      if (s.offsetTop <= y) current = s.id;
+    }
+    navLinks.forEach((a) => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Mobile menu ---------- */
+  const toggle = $('#navToggle');
+  const drawer = $('#mobileDrawer');
+  const overlay = $('#navOverlay');
+  function setMenu(open) {
+    drawer?.classList.toggle('open', open);
+    overlay?.classList.toggle('open', open);
+    if (overlay) overlay.hidden = !open;
+    if (drawer) drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  toggle?.addEventListener('click', () => setMenu(!drawer.classList.contains('open')));
+  overlay?.addEventListener('click', () => setMenu(false));
+  $$('#mobileDrawer a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+
+  /* ---------- Smooth scroll helpers ---------- */
+  $$('[data-scroll-to]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const t = $(btn.getAttribute('data-scroll-to'));
+      t?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    });
+  });
+
+  /* ---------- Reveal on scroll ---------- */
+  const revealEls = $$('.reveal, .reveal-left, .reveal-right');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  /* ---------- Magnetic CTAs ---------- */
+  if (!reduced && matchMedia('(pointer:fine)').matches) {
+    $$('.magnetic').forEach((el) => {
+      el.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width / 2;
+        const y = e.clientY - r.top - r.height / 2;
+        el.style.transform = `translate(${x * 0.18}px, ${y * 0.22}px)`;
+      });
+      el.addEventListener('pointerleave', () => {
+        el.style.transform = '';
+      });
+    });
+  }
+
+  /* ---------- 3D tilt cards ---------- */
+  if (!reduced && matchMedia('(pointer:fine)').matches) {
+    $$('.tilt').forEach((card) => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${px * 10}deg) rotateX(${-py * 10}deg) translateY(-4px)`;
+      });
+      card.addEventListener('pointerleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  /* ---------- Curriculum accordion + rail ---------- */
+  $$('.module').forEach((mod) => {
+    const head = $('.module-head', mod);
+    head?.addEventListener('click', () => {
+      const open = mod.classList.toggle('open');
+      head.setAttribute('aria-expanded', open ? 'true' : 'false');
+      const id = mod.id;
+      $$('.rail-dot').forEach((d) => d.classList.toggle('active', d.dataset.target === id));
+    });
+  });
+  $$('.rail-dot').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const mod = $('#' + btn.dataset.target);
+      if (!mod) return;
+      mod.classList.add('open');
+      $('.module-head', mod)?.setAttribute('aria-expanded', 'true');
+      $$('.rail-dot').forEach((d) => d.classList.toggle('active', d === btn));
+      mod.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+    });
+  });
+  // open first module by default for discoverability
+  const firstMod = $('.module');
+  if (firstMod) {
+    firstMod.classList.add('open');
+    $('.module-head', firstMod)?.setAttribute('aria-expanded', 'true');
+    $$('.rail-dot')[0]?.classList.add('active');
+  }
+
+  /* ---------- Reviews drag carousel ---------- */
+  const track = $('#reviewsTrack');
+  if (track) {
+    let down = false, startX = 0, scrollLeft = 0;
+    const start = (x) => {
+      down = true;
+      startX = x;
+      scrollLeft = track.scrollLeft;
+      track.classList.add('dragging');
+    };
+    const move = (x) => {
+      if (!down) return;
+      track.scrollLeft = scrollLeft - (x - startX);
+    };
+    const end = () => {
+      down = false;
+      track.classList.remove('dragging');
+    };
+    track.addEventListener('pointerdown', (e) => {
+      track.setPointerCapture(e.pointerId);
+      start(e.clientX);
+    });
+    track.addEventListener('pointermove', (e) => move(e.clientX));
+    track.addEventListener('pointerup', end);
+    track.addEventListener('pointercancel', end);
+  }
+
+  /* ---------- Enquiry form ---------- */
+  const form = $('#enquiryForm');
+  const status = $('#formStatus');
+  function setError(field, msg) {
+    const wrap = form.querySelector(`[data-field="${field}"]`);
+    if (!wrap) return;
+    wrap.classList.toggle('error', !!msg);
+    const err = $('.err', wrap);
+    if (err) err.textContent = msg || '';
+  }
+  function validEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const first = $('#firstName').value.trim();
+    const last = $('#lastName').value.trim();
+    const mobile = $('#mobile').value.trim();
+    const email = $('#email').value.trim();
+    const message = $('#message').value.trim();
+    let ok = true;
+    setError('first', first ? '' : 'First Name is required');
+    setError('last', last ? '' : 'Last Name is required');
+    setError('mobile', mobile ? '' : 'Mobile Number is required');
+    if (mobile && !/^[0-9+\-\s()]{7,20}$/.test(mobile)) {
+      setError('mobile', 'Enter a valid mobile number');
+      ok = false;
+    }
+    setError('email', email ? (validEmail(email) ? '' : 'Enter a valid email') : 'Email is required');
+    setError('message', message ? '' : 'Message is required');
+    if (!first || !last || !mobile || !email || !validEmail(email) || !message) ok = false;
+    if (!ok) {
+      status.className = 'form-status bad';
+      status.textContent = 'Please correct the highlighted fields.';
+      return;
+    }
+    const text = encodeURIComponent(
+      `NetApp Guru Enquiry%0AFirst Name: ${first}%0ALast Name: ${last}%0AMobile: ${mobile}%0AEmail: ${email}%0AMessage: ${message}`
+    );
+    // Open published WhatsApp channel with enquiry details
+    const wa = `https://wa.me/919642518547?text=${text}`;
+    const win = window.open(wa, '_blank', 'noopener,noreferrer');
+    if (win) {
+      status.className = 'form-status ok';
+      status.textContent = 'Enquiry opened in WhatsApp. Send the pre-filled message to complete your submission.';
+      form.reset();
+    } else {
+      status.className = 'form-status bad';
+      status.innerHTML = 'Popup blocked. Please use <a href="' + wa + '" target="_blank" rel="noopener noreferrer">this WhatsApp link</a> or email netapptraining2526@gmail.com.';
+    }
+  });
+
+  /* ---------- Hero mouse parallax ---------- */
+  const heroContent = $('#heroContent');
+  const hero = $('#home');
+  if (hero && heroContent && !reduced && matchMedia('(pointer:fine)').matches) {
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      heroContent.style.transform = `rotateY(${x * 6}deg) rotateX(${-y * 4}deg) translateZ(0)`;
+    });
+    hero.addEventListener('pointerleave', () => {
+      heroContent.style.transform = '';
+    });
+  }
+
+  /* =========================================================
+     Procedural canvas visuals (server racks, network, particles)
+     ========================================================= */
+  function fitCanvas(canvas) {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = canvas.getBoundingClientRect();
+    const w = Math.max(1, Math.floor(rect.width * dpr));
+    const h = Math.max(1, Math.floor(rect.height * dpr));
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+    }
+    return { w, h, dpr, cssW: rect.width, cssH: rect.height };
+  }
+
+  function drawRack(ctx, x, y, w, h, t, accent) {
+    ctx.save();
+    ctx.translate(x, y);
+    // chassis
+    const g = ctx.createLinearGradient(0, 0, w, h);
+    g.addColorStop(0, '#0d274f');
+    g.addColorStop(1, '#071428');
+    ctx.fillStyle = g;
+    ctx.strokeStyle = 'rgba(120,180,255,0.35)';
+    ctx.lineWidth = 1.5;
+    roundRect(ctx, 0, 0, w, h, 8);
+    ctx.fill();
+    ctx.stroke();
+    const rows = Math.max(4, Math.floor(h / 18));
+    for (let i = 0; i < rows; i++) {
+      const yy = 10 + i * (h - 20) / rows;
+      ctx.fillStyle = i % 3 === 0 ? 'rgba(4,107,210,0.55)' : 'rgba(255,255,255,0.08)';
+      ctx.fillRect(10, yy, w - 20, 6);
+      // blink LEDs
+      const on = Math.sin(t * 3 + i * 0.7 + x * 0.01) > 0.2;
+      ctx.fillStyle = on ? accent : 'rgba(255,255,255,0.15)';
+      ctx.beginPath();
+      ctx.arc(w - 14, yy + 3, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function createParticles(n, w, h) {
+    return Array.from({ length: n }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      z: Math.random(),
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: -0.15 - Math.random() * 0.45,
+      r: 1 + Math.random() * 2,
+    }));
+  }
+
+  /* Hero storage environment */
+  function initHeroCanvas() {
+    const canvas = $('#hero-fallback');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let parts = [];
+    let blocks = [];
+    let links = [];
+    let mouse = { x: 0.5, y: 0.45 };
+    let raf = 0;
+    let visible = true;
+
+    function rebuild() {
+      const { cssW: w, cssH: h } = fitCanvas(canvas);
+      const count = w < 700 ? 3 : w < 1100 ? 5 : 7;
+      blocks = [];
+      for (let i = 0; i < count; i++) {
+        blocks.push({
+          x: w * (0.42 + i * 0.07) + (i % 2) * 20,
+          y: h * (0.22 + (i % 3) * 0.12),
+          w: 54 + (i % 3) * 10,
+          h: 120 + (i % 4) * 28,
+          float: Math.random() * Math.PI * 2,
+          depth: 0.4 + (i / count) * 0.8,
+        });
+      }
+      // floating data cubes
+      for (let i = 0; i < (w < 700 ? 6 : 12); i++) {
+        blocks.push({
+          cube: true,
+          x: Math.random() * w * 0.9 + w * 0.05,
+          y: Math.random() * h * 0.7 + h * 0.1,
+          s: 12 + Math.random() * 18,
+          float: Math.random() * Math.PI * 2,
+          depth: 0.3 + Math.random(),
+        });
+      }
+      links = [];
+      for (let i = 0; i < blocks.length - 1; i++) {
+        if (Math.random() > 0.45) links.push([i, i + 1]);
+      }
+      parts = createParticles(w < 700 ? 40 : 90, w, h);
+    }
+
+    hero?.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      mouse.x = (e.clientX - r.left) / r.width;
+      mouse.y = (e.clientY - r.top) / r.height;
+    });
+
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+    });
+    io.observe(canvas);
+
+    function drawCube(ctx, x, y, s, t) {
+      const dx = s * 0.45;
+      const dy = s * 0.28;
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.beginPath();
+      ctx.moveTo(0, -dy);
+      ctx.lineTo(dx, 0);
+      ctx.lineTo(0, dy);
+      ctx.lineTo(-dx, 0);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(4,107,210,0.35)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,105,0,0.65)';
+      ctx.stroke();
+      // top face glow pulse
+      ctx.globalAlpha = 0.35 + Math.sin(t) * 0.15;
+      ctx.beginPath();
+      ctx.moveTo(0, -dy);
+      ctx.lineTo(dx, 0);
+      ctx.lineTo(0, dy * 0.1);
+      ctx.lineTo(-dx, 0);
+      ctx.closePath();
+      ctx.fillStyle = '#ff6900';
+      ctx.fill();
+      ctx.restore();
+    }
+
+    let t0 = performance.now();
+    function frame(now) {
+      raf = requestAnimationFrame(frame);
+      if (!visible || document.hidden) return;
+      const { w, h, dpr, cssW, cssH } = fitCanvas(canvas);
+      if (!blocks.length) rebuild();
+      const t = (now - t0) / 1000;
+      ctx.clearRect(0, 0, w, h);
+      ctx.save();
+      ctx.scale(dpr, dpr);
+
+      // parallax offset
+      const px = (mouse.x - 0.5) * 30;
+      const py = (mouse.y - 0.5) * 18;
+
+      // network grid floor
+      ctx.strokeStyle = 'rgba(4,107,210,0.12)';
+      ctx.lineWidth = 1;
+      const horizon = cssH * 0.72;
+      for (let i = 0; i < 14; i++) {
+        const y = horizon + i * 18 + ((t * 20) % 18);
+        const spread = 40 + i * 28;
+        ctx.beginPath();
+        ctx.moveTo(cssW * 0.35 - spread + px * 0.2, y + py * 0.1);
+        ctx.lineTo(cssW * 0.95 + spread + px * 0.2, y + py * 0.1);
+        ctx.stroke();
+      }
+
+      // connections
+      ctx.lineWidth = 1.2;
+      links.forEach(([a, b], i) => {
+        const A = blocks[a], B = blocks[b];
+        if (!A || !B) return;
+        const ax = (A.x + px * A.depth) + (A.w || A.s || 0) / 2;
+        const ay = A.y + Math.sin(t + A.float) * 8 * A.depth + py * A.depth;
+        const bx = (B.x + px * B.depth) + (B.w || B.s || 0) / 2;
+        const by = B.y + Math.sin(t + B.float) * 8 * B.depth + py * B.depth;
+        const grad = ctx.createLinearGradient(ax, ay, bx, by);
+        grad.addColorStop(0, 'rgba(4,107,210,0.15)');
+        grad.addColorStop(0.5, 'rgba(255,105,0,0.55)');
+        grad.addColorStop(1, 'rgba(4,107,210,0.15)');
+        ctx.strokeStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(ax, ay);
+        ctx.quadraticCurveTo((ax + bx) / 2, (ay + by) / 2 - 40, bx, by);
+        ctx.stroke();
+        // traveling packet
+        const p = (Math.sin(t * 1.5 + i) + 1) / 2;
+        const qx = ax + (bx - ax) * p;
+        const qy = ay + (by - ay) * p - Math.sin(p * Math.PI) * 40;
+        ctx.fillStyle = '#ffb347';
+        ctx.beginPath();
+        ctx.arc(qx, qy, 2.5, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      blocks.forEach((b) => {
+        const x = b.x + px * b.depth;
+        const y = b.y + Math.sin(t + b.float) * 8 * b.depth + py * b.depth;
+        if (b.cube) drawCube(ctx, x, y, b.s, t + b.float);
+        else drawRack(ctx, x, y, b.w, b.h, t, '#38C069');
+      });
+
+      // particles / data stream
+      parts.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.y < -10) { p.y = cssH + 10; p.x = Math.random() * cssW; }
+        if (p.x < 0 || p.x > cssW) p.vx *= -1;
+        ctx.fillStyle = `rgba(100,180,255,${0.25 + p.z * 0.5})`;
+        ctx.beginPath();
+        ctx.arc(p.x + px * p.z * 0.3, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      ctx.restore();
+    }
+
+    rebuild();
+    window.addEventListener('resize', () => { blocks = []; rebuild(); }, { passive: true });
+    if (!reduced) raf = requestAnimationFrame(frame);
+    else {
+      // static frame
+      fitCanvas(canvas);
+      rebuild();
+      const { dpr, cssW, cssH } = fitCanvas(canvas);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      blocks.forEach((b) => {
+        if (b.cube) drawCube(ctx, b.x, b.y, b.s, 0);
+        else drawRack(ctx, b.x, b.y, b.w, b.h, 0, '#38C069');
+      });
+      ctx.restore();
+    }
+  }
+
+  function initNetworkCanvas(canvas, opts = {}) {
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+    let visible = false;
+    function rebuild() {
+      const { cssW: w, cssH: h } = fitCanvas(canvas);
+      const n = opts.count || (w < 500 ? 18 : 28);
+      nodes = Array.from({ length: n }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r: 2 + Math.random() * 2.5,
+      }));
+    }
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible && !nodes.length) rebuild();
+    }, { threshold: 0.05 });
+    io.observe(canvas);
+    window.addEventListener('resize', rebuild, { passive: true });
+
+    function frame() {
+      requestAnimationFrame(frame);
+      if (!visible || document.hidden || reduced) return;
+      const { w, h, dpr, cssW, cssH } = fitCanvas(canvas);
+      if (!nodes.length) rebuild();
+      ctx.clearRect(0, 0, w, h);
+      ctx.save();
+      ctx.scale(dpr, dpr);
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        a.x += a.vx; a.y += a.vy;
+        if (a.x < 0 || a.x > cssW) a.vx *= -1;
+        if (a.y < 0 || a.y > cssH) a.vy *= -1;
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 110) {
+            ctx.strokeStyle = `rgba(4,107,210,${(1 - dist / 110) * 0.45})`;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+        ctx.fillStyle = opts.accent || '#ff6900';
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      // central storage node
+      const cx = cssW * 0.5, cy = cssH * 0.5;
+      ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+      ctx.beginPath();
+      ctx.arc(cx, cy, 36, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(4,107,210,0.35)';
+      ctx.beginPath();
+      ctx.arc(cx, cy, 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    if (!reduced) requestAnimationFrame(frame);
+    else {
+      rebuild();
+      fitCanvas(canvas);
+    }
+  }
+
+  initHeroCanvas();
+  initNetworkCanvas($('#about-canvas'), { count: 26 });
+  initNetworkCanvas($('#trainer-canvas'), { count: 22, accent: '#fcb900' });
+  initNetworkCanvas($('#enquiry-canvas'), { count: 20 });
+
+  /* Optional Three.js enhancement — non-blocking */
+  function loadThree() {
+    if (reduced || window.innerWidth < 900) return;
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js';
+    s.async = true;
+    s.onload = () => {
+      try { initThreeHero(); } catch (err) { console.warn('3D scene skipped', err); }
+    };
+    s.onerror = () => {};
+    document.head.appendChild(s);
+  }
+
+  function initThreeHero() {
+    const THREE = window.THREE;
+    if (!THREE) return;
+    const host = $('#home');
+    const canvas = $('#hero-canvas');
+    if (!host || !canvas) return;
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+    camera.position.set(0, 1.4, 6.2);
+    const light = new THREE.DirectionalLight(0x8ec5ff, 1.2);
+    light.position.set(3, 5, 4);
+    scene.add(light);
+    scene.add(new THREE.AmbientLight(0x446688, 0.55));
+
+    const group = new THREE.Group();
+    scene.add(group);
+    const mat = new THREE.MeshStandardMaterial({
+      color: 0x0b2a55,
+      metalness: 0.55,
+      roughness: 0.35,
+      emissive: 0x041833,
+    });
+    const ledMat = new THREE.MeshBasicMaterial({ color: 0xff6900 });
+    for (let i = 0; i < 5; i++) {
+      const geo = new THREE.BoxGeometry(0.55, 1.4 + (i % 3) * 0.25, 0.45);
+      const mesh = new THREE.Mesh(geo, mat.clone());
+      mesh.position.set(i * 0.75 - 1.4, 0.2, -i * 0.15);
+      group.add(mesh);
+      for (let L = 0; L < 6; L++) {
+        const led = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.04, 0.02), ledMat);
+        led.position.set(0, 0.5 - L * 0.18, 0.24);
+        mesh.add(led);
+      }
+    }
+    // floating data blocks
+    const blockMat = new THREE.MeshStandardMaterial({
+      color: 0x046bd2, metalness: 0.4, roughness: 0.25, transparent: true, opacity: 0.85,
+    });
+    const floaters = [];
+    for (let i = 0; i < 10; i++) {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.22, 0.22), blockMat);
+      m.position.set((Math.random() - 0.3) * 4, Math.random() * 2 - 0.2, Math.random() * 2 - 1);
+      group.add(m);
+      floaters.push({ m, base: m.position.y, speed: 0.6 + Math.random() });
+    }
+
+    // connection lines
+    const lineMat = new THREE.LineBasicMaterial({ color: 0xff6900, transparent: true, opacity: 0.45 });
+    for (let i = 0; i < 6; i++) {
+      const pts = [
+        new THREE.Vector3(-1.5 + i * 0.4, 0.8, 0.2),
+        new THREE.Vector3(-0.5 + i * 0.2, 1.4, -0.5),
+        new THREE.Vector3(1.2, 0.6 + i * 0.05, -1),
+      ];
+      const geo = new THREE.BufferGeometry().setFromPoints(pts);
+      group.add(new THREE.Line(geo, lineMat));
+    }
+
+    function resize() {
+      const w = host.clientWidth, h = host.clientHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    let mx = 0, my = 0, visible = true;
+    host.addEventListener('pointermove', (e) => {
+      const r = host.getBoundingClientRect();
+      mx = (e.clientX - r.left) / r.width - 0.5;
+      my = (e.clientY - r.top) / r.height - 0.5;
+    });
+    const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; });
+    io.observe(host);
+
+    // Hide 2D fallback slightly when WebGL is active
+    const fallback = $('#hero-fallback');
+    if (fallback) fallback.style.opacity = '0.28';
+
+    function animate(t) {
+      requestAnimationFrame(animate);
+      if (!visible || document.hidden) return;
+      group.rotation.y = mx * 0.45 + Math.sin(t * 0.00025) * 0.08;
+      group.rotation.x = -my * 0.2;
+      floaters.forEach((f, i) => {
+        f.m.position.y = f.base + Math.sin(t * 0.001 * f.speed + i) * 0.25;
+        f.m.rotation.x += 0.01;
+        f.m.rotation.y += 0.012;
+      });
+      renderer.render(scene, camera);
+    }
+    requestAnimationFrame(animate);
+  }
+
+  // Fix accidental space in ambient light line above via safe call
+  // (the template had a typo guard)
+
+  loadThree();
+})();
+</script>
+</body>
+</html>
