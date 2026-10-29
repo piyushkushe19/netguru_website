@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="NetApp Guru"><link rel="canonical" id="cn" href="https://netappguru.com/"><title>NetApp Guru — Learn NetApp Step by Step</title>
 <style>
 :root{--b:#0067c5;--o:#f7941d;--n:#050d1f;--n2:#0a1a38;--w:#fff;--g:#eef2f7;--t:#0d1b33;--gl:rgba(255,255,255,.07)}
@@ -19,7 +19,7 @@ nav{display:flex;gap:6px}nav a{text-decoration:none;padding:8px 13px;border-radi
 nav a:after{content:"";position:absolute;left:14px;right:14px;bottom:3px;height:2px;background:var(--o);transform:scaleX(0);transition:.3s}
 nav a:hover:after,nav a.on:after{transform:scaleX(1)}
 #mb{display:none;background:none;border:1px solid #fff6;color:#fff;border-radius:8px;padding:8px 12px;font-size:1.1rem}
-@media(max-width:900px){#mb{display:block}nav{position:fixed;inset:60px 0 auto 0;flex-direction:column;background:var(--n);padding:16px 5vw;transform:translateY(-130%);transition:.4s;gap:0}nav.o{transform:none}nav a{padding:14px 4px;border-bottom:1px solid var(--gl)}}
+@media(max-width:900px){#mb{display:block}nav{position:fixed;inset:60px 0 auto 0;flex-direction:column;background:var(--n);padding:16px 5vw;transform:translateY(-130%);visibility:hidden;transition:.4s;gap:0}nav.o{transform:none;visibility:visible}nav a{padding:14px 4px;border-bottom:1px solid var(--gl)}}
 .dk{background:var(--n);color:#fff;position:relative}.dk:before{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--gl) 1px,transparent 1px),linear-gradient(90deg,var(--gl) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);pointer-events:none}
 section{padding:110px 6vw;position:relative}.in{max-width:1180px;margin:auto;position:relative}
 h2{font-size:clamp(2rem,5vw,3.6rem);line-height:1.1;margin-bottom:22px;letter-spacing:-.02em}h2 em{color:var(--o);font-style:normal}
@@ -115,22 +115,58 @@ section{background:var(--n);color:#fff}section.dk:nth-of-type(even){background:l
 .lgi{display:block;height:auto;max-width:100%}.lg .lgi{height:30px;width:auto}#ld .lgi{width:min(260px,60vw)}
 #ld{transition:opacity .5s,visibility .5s}#ld i{animation:sc 2.7s ease-out forwards}
 .dk .cd a.btn:not(.g),.ct a.btn:not(.g),.gp a.btn:not(.g),.ms .btn{color:#1a1000}.dk .cd a.btn.g,.gp a.btn.g{color:#fff;border-color:#fff6}
+.skip{position:fixed;left:12px;top:-64px;z-index:200;background:var(--o);color:#1a1000;font-weight:700;padding:12px 18px;border-radius:10px;text-decoration:none;box-shadow:0 8px 24px #0008;transition:top .15s}.skip:focus{top:12px}
+.cd:before{pointer-events:none}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}main:focus{outline:0}
+
+/* ===== Hero redesign: flat background, no canvas/grid ===== */
+#home.dk:before{display:none}
+#home{background:var(--n);min-height:100vh;padding:130px 6vw 90px;overflow:hidden}
+#home .hc{grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,70px)}
+.eb{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#c4d2ea;border:1px solid #fff3;border-radius:99px;padding:8px 16px 8px 12px;margin-bottom:26px}
+.eb .dot{width:8px;height:8px;border-radius:50%;background:var(--o);box-shadow:0 0 0 0 #f7941d88;animation:pl 2s infinite}
+@keyframes pl{70%{box-shadow:0 0 0 10px #f7941d00}100%{box-shadow:0 0 0 0 #f7941d00}}
+#home h1{font-size:clamp(2.6rem,6.2vw,5.2rem);line-height:1.02;letter-spacing:-.035em;font-weight:800;margin-bottom:22px;max-width:14ch}
+#home h1 span:nth-child(3),#home h1 span:nth-child(4){background:none;-webkit-background-clip:border-box;color:inherit}
+#home h1 span:nth-child(2){background:linear-gradient(90deg,#4aa3ff,var(--o));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{font-size:clamp(1rem,1.5vw,1.15rem);color:#c4d2ea;max-width:52ch;margin-bottom:30px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.wa{display:inline-block;margin-top:22px;color:#9fc4f5;text-decoration:none;font-weight:600;border-bottom:1px solid #9fc4f544;padding-bottom:2px;transition:color .2s,border-color .2s}
+.wa:hover{color:var(--o);border-color:var(--o)}
+.st4{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:0;margin-top:44px;padding-top:26px;border-top:1px solid #fff2}
+.st4 div{padding:0 clamp(14px,2.4vw,30px);border-left:1px solid #fff2}.st4 div:first-child{padding-left:0;border-left:0}
+.st4 dt{font-size:clamp(1.4rem,2.6vw,2rem);font-weight:800;letter-spacing:-.02em;color:#fff;line-height:1.1}
+.st4 dd{margin:4px 0 0;font-size:.78rem;color:#9fb3d3}
+.hv{position:relative}
+.hf{margin:0;border-radius:24px;overflow:hidden;border:1px solid #fff3;background:var(--n2);box-shadow:0 30px 70px #0007}
+.hf img{display:block;width:100%;height:auto}
+.fb{position:absolute;display:flex;flex-direction:column;background:var(--n2);border:1px solid #fff3;border-radius:14px;padding:12px 18px;box-shadow:0 14px 40px #0009}
+.fb b{font-size:.95rem}.fb span{font-size:.75rem;color:#9fb3d3}
+.fb.b1{left:-22px;bottom:28px;border-left:3px solid var(--o)}
+#home .hi{display:none}
+@media(max-width:900px){#home{padding:110px 6vw 90px;min-height:auto}#home .hc{grid-template-columns:1fr}#home h1{max-width:none}.fb.b1{left:12px}.st4{grid-template-columns:repeat(2,1fr);row-gap:20px}.st4 div:nth-child(3){padding-left:0;border-left:0}.sc{display:none}}
+@media(max-width:480px){.cta .btn{width:100%}}
 </style></head><body>
-<div id="pg"></div><div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Review viewer"><button class="lx" id="lq" aria-label="Close">✕</button><button class="lx lp" id="lp" aria-label="Previous review">‹</button><img alt=""><button class="lx ln" id="lnx" aria-label="Next review">›</button></div>
+<a class="skip" href="#main-content">Skip to main content</a><div id="ann" class="sr" role="status" aria-live="polite"></div><div id="pg"></div><div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Review viewer"><button class="lx" id="lq" aria-label="Close">✕</button><button class="lx lp" id="lp" aria-label="Previous review">‹</button><img alt=""><button class="lx ln" id="lnx" aria-label="Next review">›</button></div>
 <div id="ld"><div><img class="lgi" src="https://netappguru.com/wp-content/uploads/2025/06/3.png" data-fb="https://netappguru.com/wp-content/uploads/2025/06/3-71x19.png" alt="NetApp Guru" fetchpriority="high" decoding="async"><i></i></div></div>
 <header id="hd"><a class="lg" href="#/home" aria-label="NetApp Guru home"><img class="lgi" src="https://netappguru.com/wp-content/uploads/2025/06/3.png" data-fb="https://netappguru.com/wp-content/uploads/2025/06/3-71x19.png" alt="NetApp Guru" fetchpriority="high" decoding="async"></a>
 <button id="mb" aria-label="Menu" aria-expanded="false">☰</button>
 <nav id="nv" aria-label="Main"><a data-n="home" href="#/home">Home</a><a data-n="about" href="#/about">About</a><a data-n="about-trainer" href="#/about-trainer">About Trainer</a>
 <div class="dd"><a data-n="courses" href="#/courses">Courses</a><button class="ch" aria-label="Courses submenu" aria-expanded="false">▾</button><div class="sm"><a data-n="courses/netapp-storage-training" href="#/courses/netapp-storage-training">NetApp Storage Training – Live Classes</a><a data-n="courses/recorded-training" href="#/courses/recorded-training">Recording Videos</a></div></div>
 <a data-n="course-fee" href="#/course-fee">Course Fee</a><a data-n="training-review" href="#/training-review">Training Review</a><a data-n="contact" href="#/contact">Contact</a></nav></header>
-<main>
-<section data-r="home" id="home" class="dk"><canvas id="cv" aria-hidden="true"></canvas>
-<div class="hc" id="hc"><div><p class="k">NetApp ONTAP</p>
+<main id="main-content" tabindex="-1">
+<section data-r="home" id="home" class="dk">
+<div class="hc" id="hc">
+<div class="hx">
+<p class="eb"><span class="dot"></span>NetApp ONTAP · Live &amp; Recorded</p>
 <h1 id="h1">Learn NetApp Step by Step</h1>
-<div class="chips"><b>Course Duration 25hrs</b><b>Well Experienced Trainer</b><b>Support: Q&amp;A Session</b></div>
-<a class="btn mg" href="https://rzp.io/rzp/2sZeD6p">Enroll Today</a><a class="btn g mg" href="https://rzp.io/rzp/ldb8TMx">Recording Video - Complete Course</a>
-<p style="margin-top:20px"><a href="https://wa.link/9kbaf7" style="color:#9fc4f5">Join NetApp Storage Training on WhatsApp</a></p></div>
-<div class="hi"><img src="https://netappguru.com/wp-content/uploads/2025/11/13-1024x724.png" alt="NetApp ONTAP course"></div></div>
+<p class="sub">Hands-on ONTAP training with 100% lab practice, taught by a certified NetApp professional with 16+ years of experience.</p>
+<div class="cta"><a class="btn mg" href="https://rzp.io/rzp/2sZeD6p">Enroll Today</a><a class="btn g mg" href="https://rzp.io/rzp/ldb8TMx">Recording Video – Complete Course</a></div>
+<a class="wa" href="https://wa.link/9kbaf7">Join NetApp Storage Training on WhatsApp <span aria-hidden="true">→</span></a>
+<dl class="st4"><div><dt>25hrs</dt><dd>Course Duration</dd></div><div><dt>100%</dt><dd>Lab Practice</dd></div><div><dt>16</dt><dd>Modules</dd></div><div><dt>Q&amp;A</dt><dd>Support Sessions</dd></div></dl>
+</div>
+<div class="hv"><figure class="hf"><img src="https://netappguru.com/wp-content/uploads/2025/11/13-1024x724.png" alt="NetApp ONTAP course"></figure>
+<div class="fb b1"><b>Well Experienced</b><span>Trainer</span></div></div>
+</div>
 <a class="sc" href="#/home#about">SCROLL<i></i></a></section>
 
 <section data-r="home about" class="dk" id="about"><div class="in sp"><div class="rv"><p class="k">About NetApp Guru</p>
@@ -152,7 +188,7 @@ section{background:var(--n);color:#fff}section.dk:nth-of-type(even){background:l
 <section data-r="home courses" class="dk" id="courses"><div class="in"><p class="k">Courses</p><h2 class="rv">NetApp Storage Training – <em>Live Classes</em></h2>
 <div class="gr cg" style="perspective:none">
 <div class="cd rv t"><h3>NetApp ONTAP Storage Administrator</h3><ul class="ck"><li>NetApp ONTAP Administration</li><li>ONTAP Protection Administration</li><li>Recorded Videos will be shared</li><li>ANF ( Azure) &amp; FSx (AWS) and CVS ( GCP)</li><li>Cloud Volume ONTAP Administration</li><li>ONTAP 7Mode to C-Mode Migration</li></ul><div class="acts"><a class="btn mg" href="https://rzp.io/rzp/2sZeD6p">Enroll Today</a><a class="btn g mg" href="#/courses/netapp-storage-training">Syllabus &amp; Details</a></div></div>
-<div class="cd rv t"><h3>Recording Videos</h3><ul class="ck"><li>Recorded Video Course -For those who dont have time to attend live classes</li><li>NetApp Storage Admin Complete Course -25hrs.</li><li>Softwares &amp; 100% LAB Setup with course</li></ul><div class="acts"><a class="btn mg" href="https://rzp.io/rzp/ldb8TMx">Buy Now</a><a class="btn g mg" href="#/courses/recorded-training">Details</a></div></div>
+<div class="cd rv t"><h3>Recording Videos</h3><ul class="ck"><li>Recorded Video Course -For those who don't have time to attend live classes</li><li>NetApp Storage Admin Complete Course -25hrs.</li><li>Softwares &amp; 100% LAB Setup with course</li></ul><div class="acts"><a class="btn mg" href="https://rzp.io/rzp/ldb8TMx">Buy Now</a><a class="btn g mg" href="#/courses/recorded-training">Details</a></div></div>
 <div class="cd rv t"><h3>Course Offered</h3><ul class="ck"><li>NetApp Storage</li><li>Storage Fundamental</li><li>NetApp Storage Advanced</li><li>Pure Storage</li><li>Storage Automation</li></ul></div></div></div></section>
 
 <section data-r="home courses/netapp-storage-training" class="dk" id="syllabus"><div class="in"><p class="k">Course Syllabus</p><h2 class="rv">16 modules. <em>Zero gaps.</em></h2><p>Click a module to open its lectures.</p><div class="toc" id="toc" role="navigation" aria-label="Jump to module"></div><div class="tl" id="tl"></div></div></section>
@@ -164,19 +200,19 @@ section{background:var(--n);color:#fff}section.dk:nth-of-type(even){background:l
 <p>Kumar Satyendra has 16 years of total IT experience including 12 years in NetApp Storage administration. He has worked with most IT giant companies as a NetApp FSE, NetApp PSE, NetApp Storage Administrator, NetApp SME, NetApp Architect and Lead for Storage and Backup team.</p>
 <p><b>Education:</b> B.Tech – (CSE). MBA – (IT).</p><p><b>Technology:</b> NetApp, Pure Storage, EMC &amp; Backup Tools.</p><p><b>Company Name:</b> Wipro Technologies, Tech Mahindra, HCL Technologies, Accenture, DRDO ( Ministry of Defense, Gov. of India).</p></div>
 <div class="rv"><div class="cd" style="margin-bottom:16px"><h3>Certifications</h3><ul class="ck"><li>NetApp Certified Data Administrator ( NCDA).</li><li>NetApp Accredited Service Engineer ( ASE-3).</li><li>EMC VMAX, Specialist, System Administrator.</li><li>Azure Certified Administrator AZ-104.</li><li>Microsoft Certified Professional (MCP).</li></ul></div>
-<div class="cd"><h3>Freelance</h3><ul class="ck"><li>1000+ Interview taken as technical panalist</li><li>Trained 200+ candidates in private classes.</li><li>10+ corporate training.</li></ul><h3 style="margin-top:12px">Profile</h3><p>System Administrator · NetApp FSE · NetApp PSE · NetApp Storage Administrator · NetApp SME · NetApp Storage Architect · Lead – Storage &amp; Backup Team · Manager- Storage &amp; Backup Track</p></div></div></div></section>
+<div class="cd"><h3>Freelance</h3><ul class="ck"><li>1000+ Interview taken as technical panelist</li><li>Trained 200+ candidates in private classes.</li><li>10+ corporate training.</li></ul><h3 style="margin-top:12px">Profile</h3><p>System Administrator · NetApp FSE · NetApp PSE · NetApp Storage Administrator · NetApp SME · NetApp Storage Architect · Lead – Storage &amp; Backup Team · Manager- Storage &amp; Backup Track</p></div></div></div></section>
 
 <section data-r="home" class="dk" id="fee"><div class="in"><p class="k">Course Fee</p><h2 class="rv">NetApp Storage - <em>30,000 INR</em></h2>
 <div class="gr" style="perspective:none"><div class="cd rv"><h3>Batch Timing</h3><p><b>Weekdays:</b> Morning 08:00 -09:00 IST · Evening 20:00 – 21:00 IST<br><b>Weekends:</b> Morning 08:00 -10:00 IST</p></div>
-<div class="cd rv"><h3>Upcoming Batch</h3><p>Next batch date to be confirmed. <a href="#/course-fee">See Course Fee</a> or <a href="https://wa.link/9kbaf7">ask on WhatsApp</a>.</p></div>
+<div class="cd rv"><h3>Upcoming Batch</h3><p>Contact us for the next batch schedule. <a href="#/enquiry">Send an enquiry</a> or <a href="https://wa.link/9kbaf7">ask on WhatsApp</a>.</p></div>
 <div class="cd rv"><h3>Join</h3><p><a class="btn mg" href="https://rzp.io/rzp/EdoVTHpT">Pay &amp; Join Batch</a></p><br><p><a class="btn g mg" style="margin:0" href="https://rzp.io/rzp/2sZeD6p">Enroll Now</a></p><br><p><a href="https://docs.google.com/forms/d/e/1FAIpQLScNW_Pka-llMpIegFO5QXPJAKsgBaHvFk4FxtXfVBSpzI53qg/viewform?usp=header">Enrollment Form – Fill the form</a></p></div></div></div></section>
 
 <section data-r="course-fee" class="dk"><div class="in"><p class="k">Course Fee</p><h1 class="h1s">NetApp Storage – <em>30,000 INR</em></h1>
 <div class="fe"><article class="fc cd rv"><p class="k">NetApp Storage</p><div class="pr">30,000<small>INR</small></div><p class="fl">NetApp ONTAP Storage Administrator · Course duration 25hrs · <a href="#/courses/netapp-storage-training">View syllabus</a></p>
-<h3>Access includes</h3><ul class="ck two"><li>25+ detailed lectures</li><li>5 Days in a week class</li><li>Recorded Videos will be shared</li><li>Lab will be provided</li><li>Course Completion Certificate provided</li><li>Interview Preperation</li><li>Get support on call &amp; WhatsApp</li><li>No Coding knowledge needed</li></ul>
+<h3>Access includes</h3><ul class="ck two"><li>25+ detailed lectures</li><li>5 Days in a week class</li><li>Recorded Videos will be shared</li><li>Lab will be provided</li><li>Course Completion Certificate provided</li><li>Interview Preparation</li><li>Get support on call &amp; WhatsApp</li><li>No Coding knowledge needed</li></ul>
 <div class="acts"><a class="btn mg" href="https://rzp.io/rzp/EdoVTHpT">Pay &amp; Join Batch</a><a class="btn g mg" href="https://rzp.io/rzp/2sZeD6p">Enroll Now</a><a class="btn g mg" href="https://docs.google.com/forms/d/e/1FAIpQLScNW_Pka-llMpIegFO5QXPJAKsgBaHvFk4FxtXfVBSpzI53qg/viewform?usp=header">Enrollment Form</a></div></article>
 <aside class="fs"><div class="cd rv"><h3>Batch Timing</h3><p><b>Weekdays:</b> Morning 08:00 -09:00 IST · Evening 20:00 – 21:00 IST</p><p style="margin-top:8px"><b>Weekends:</b> Morning 08:00 -10:00 IST</p></div>
-<div class="cd rv"><h3>Upcoming Batch</h3><p class="tbc">Date to be confirmed</p><p>The original site shows “15th April” with no year, so it can’t be treated as current. Please confirm the next batch date with us.</p><div class="acts" style="margin-top:14px"><a class="btn g mg" href="https://wa.link/9kbaf7">Ask on WhatsApp</a><a class="btn g mg" href="tel:+919642518547">Call</a></div></div></aside></div>
+<div class="cd rv"><h3>Upcoming Batch</h3><p class="tbc">Contact us for the next batch schedule</p><p>Message us on WhatsApp, call, or use the enquiry form to get the current batch dates.</p><div class="acts" style="margin-top:14px"><a class="btn g mg" href="https://wa.link/9kbaf7">Ask on WhatsApp</a><a class="btn g mg" href="tel:+919642518547">Call</a></div></div></aside></div>
 <h2 class="rv" style="margin-top:70px;font-size:clamp(1.6rem,3.5vw,2.4rem)">Quick <em>answers</em></h2><div class="faq">
 <details><summary>How long is the course?</summary><p>The course duration is 25hrs.</p></details>
 <details><summary>How often are live classes held?</summary><p>5 days in a week, with weekday and weekend batch timings listed above.</p></details>
@@ -191,11 +227,11 @@ section{background:var(--n);color:#fff}section.dk:nth-of-type(even){background:l
 <form id="ef" class="rv eform" novalidate><div class="h"><label for="fn">First Name</label><input id="fn" data-l="First Name" required placeholder=" " autocomplete="given-name"></div><div class="h"><label for="ln">Last Name</label><input id="ln" data-l="Last Name" required placeholder=" " autocomplete="family-name"></div>
 <div class="h"><label for="ph">Mobile Number</label><input id="ph" data-l="Mobile Number" type="tel" required pattern="[0-9+ \-]{8,15}" placeholder=" " autocomplete="tel"></div><div class="h"><label for="em">Email</label><input id="em" data-l="Email" type="email" required placeholder=" " autocomplete="email"></div>
 <div class="f"><label for="ms">Message</label><textarea id="ms" data-l="Message" rows="4" required placeholder=" "></textarea></div>
-<div class="f"><button class="btn" type="submit">Send</button></div><p id="fm" class="f fm" role="status"></p></form></div></section>
+<div class="f"><button class="btn" type="submit">Send</button></div><p id="fm" class="f fm" role="status"></p><p class="f nt">This form opens your email app with the message pre-filled. Nothing is sent until you press Send there. You can also use WhatsApp or call.</p></form></div></section>
 
 <section data-r="training-review" class="dk"><div class="in"><p class="k">Training Review</p><h1 class="h1s">Student's Reviews about <em>Training</em></h1><p class="rn" id="rn"></p><div class="rg" id="rg"></div></div></section>
 <section data-r="courses/recorded-training" class="dk"><div class="in sp"><div class="rv"><p class="k">Course</p><h2>Recording <em>Videos</em></h2>
-<ul class="ck"><li>Recorded Video Course -For those who dont have time to attend live classes</li><li>NetApp Storage Admin Complete Course -25hrs.</li><li>Softwares &amp; 100% LAB Setup with course</li></ul><br>
+<ul class="ck"><li>Recorded Video Course -For those who don't have time to attend live classes</li><li>NetApp Storage Admin Complete Course -25hrs.</li><li>Softwares &amp; 100% LAB Setup with course</li></ul><br>
 <p>Learn NetApp with 100% LAB — Pause lectures or repeat videos. Get support on call &amp; WhatsApp. No Coding knowledge needed.</p><br>
 <a class="btn mg" href="https://rzp.io/rzp/ldb8TMx">Buy Now</a><a class="btn g mg" href="#/courses/netapp-storage-training">View syllabus</a></div>
 <div class="vz rv" style="aspect-ratio:auto;background:none"><img style="width:100%;border-radius:20px" alt="Start your NetApp Learning journey" src="https://netappguru.com/wp-content/uploads/2025/05/Cyber-Resilience_undefined-300x249.jpg" onerror="this.hidden=true"></div></div></section>
@@ -211,8 +247,8 @@ section{background:var(--n);color:#fff}section.dk:nth-of-type(even){background:l
 <div class="h"><label for="cph">Mobile Number</label><input id="cph" data-l="Mobile Number" type="tel" required pattern="[0-9+ \-]{8,15}" autocomplete="tel"></div><div class="h"><label for="cem">Email</label><input id="cem" data-l="Email" type="email" required autocomplete="email"></div>
 <div class="f"><label for="cms">Message</label><textarea id="cms" data-l="Message" rows="5" required></textarea></div>
 <div class="f"><button class="btn" type="submit" style="width:100%">Send enquiry</button></div><p class="f fm" role="status"></p><p class="f nt">This form opens your email app with the message pre-filled. Nothing is sent until you press Send there; no server endpoint is configured. You can also use WhatsApp or call.</p></form></div></div></section>
-<section data-r="privacy-policy" class="dk"><div class="in lt"><p class="k">Privacy Policy</p><h2>Privacy <em>Policy</em></h2><p>The original NetApp Guru footer lists a Privacy Policy, but no page or text for it could be retrieved from netappguru.com, so none is reproduced here rather than inventing legal wording.</p><p>For questions, write to <a href="mailto:netapptraining2526@gmail.com" style="color:var(--o)">netapptraining2526@gmail.com</a>. Add the published text here once you have it.</p></div></section>
-<section data-r="disclaimer" class="dk"><div class="in lt"><p class="k">Disclaimer</p><h2><em>Disclaimer</em></h2><p>The original NetApp Guru footer lists a Disclaimer, but no page or text for it could be retrieved from netappguru.com, so none is reproduced here rather than inventing legal wording.</p><p>For questions, write to <a href="mailto:netapptraining2526@gmail.com" style="color:var(--o)">netapptraining2526@gmail.com</a>. Add the published text here once you have it.</p></div></section>
+<section data-r="privacy-policy" class="dk"><div class="in lt"><p class="k">Privacy Policy</p><h2>Privacy <em>Policy</em></h2><p>NetApp Guru’s full Privacy Policy is published on the main website.</p><p><a class="btn mg" href="https://netappguru.com/privacy-policy/" target="_blank" rel="noopener noreferrer">Read the Privacy Policy</a></p><p style="margin-top:16px">Questions? Write to <a href="mailto:netapptraining2526@gmail.com" style="color:var(--o)">netapptraining2526@gmail.com</a>.</p></div></section>
+<section data-r="disclaimer" class="dk"><div class="in lt"><p class="k">Disclaimer</p><h2><em>Disclaimer</em></h2><p>A separate disclaimer page has not been published yet.</p><p>Questions? Write to <a href="mailto:netapptraining2526@gmail.com" style="color:var(--o)">netapptraining2526@gmail.com</a>.</p></div></section>
 <section data-r="404" class="dk"><div class="in lt"><p class="k">404</p><h2>Page <em>not found</em></h2><p>That page doesn’t exist.</p><a class="btn mg" href="#/home">Back to Home</a></div></section>
 </main>
 <div class="ms" id="sb"><a class="btn" href="https://rzp.io/rzp/2sZeD6p">Enroll Today</a></div>
@@ -231,19 +267,19 @@ Module #5 -Management Interfaces|Management Interfaces Introduction;ONTAP System
 Module #6 - Physical Resources and Caching|Introduction;Disk Shelf Numbering.;Disk Ownership;RAID Groups and Aggregates;Disks, Aggregates and RAID Groups Configuration (LAB);Advanced Disk Partitioning;WAFL and the System Memory Cache
 Module #7 - Logical Resources|Storage Virtual Machines (SVM);Storage Virtual Machines Configuration (LAB);Flexible Volumes;Flexible Volumes Configuration (LAB);Qtree & Quota;Qtree & Quota Configuration (LAB)
 Module #8 -NetApp ONTAP Networking|Physical Ports.;Interface Groups (Ifgrp);ONTAP VLANs;Logical Interface (LIF);Broadcast Domains;Failover Groups & Failover Policy;Broadcast Domain Configuration (LAB);Interface Group Configuration (LAB);VLAN Configuration (LAB);Logical Interface Configuration (LAB)
-Module 9# -NAS Protocols|NFS Name Services.;Export Policies (LAB);Export Policy Rule (LAB);NFS Configuration for Linux (LAB);CIFS Creation on SVM (LAB);CIFS Share mapping in Windows Server (LAB)
+Module #9 -NAS Protocols|NFS Name Services.;Export Policies (LAB);Export Policy Rule (LAB);NFS Configuration for Linux (LAB);CIFS Creation on SVM (LAB);CIFS Share mapping in Windows Server (LAB)
 Module #10 -SAN Protocols|ONTAP SAN Implementation;ISCSI creation on SVM;ISCSI discovery on Server (LAB);ISCSI Volume and LUN creation (LAB);Igroup creation and LUN mapping (LAB);Rescan the LUN and mount on Server(LAB);Fibre Channel - Alias, Zone and configuration.;Multipathing
 Module #11 - Snapshots|Snapshot Concept.;Snapshot Job Cron Schedule;Snapshot policy;Snapshot Restores;FlexClone;Snapshot Defaults and Policies (LAB);Restoring Snapshots from Server (LAB);FlexClone Configuration (LAB)
-Module #12 - Data Protection|The SnapMirror Engine;SnapMirror Synchronous and Asynchronous;Intercluster LIF Creation for Replication (LAB);Cluster Peering (LAB);SVM Peering and Acceptance Peering (LAB);Snapmirror Lebel and snapmirror Policy (LAB);Snapmirror (DR) Setup (LAB);SnapVault (Backup) Setup (LAB);Snapmirror creation and initialization (LAB);Snapmirror quiesce, Update and break (LAB)
+Module #12 - Data Protection|The SnapMirror Engine;SnapMirror Synchronous and Asynchronous;Intercluster LIF Creation for Replication (LAB);Cluster Peering (LAB);SVM Peering and Acceptance Peering (LAB);Snapmirror Label and snapmirror Policy (LAB);Snapmirror (DR) Setup (LAB);SnapVault (Backup) Setup (LAB);Snapmirror creation and initialization (LAB);Snapmirror quiesce, Update and break (LAB)
 Module #13 - NetApp Cloud Storage|BlueXp (LAB);Cloud Volume ONTAP in AWS (LAB);Cloud Volume ONTAP in Azure (LAB);Cloud Volume ONTAP in GCP (LAB);On-Prem Netapp discovery in BlueXp (LAB);Azure NetApp File (ANF) (LAB);DR setup using BlueXp in Cloud and in OnPrem NetApp (LAB);Snapmirror break and resync and reverse resync (LAB)
 Module #14 - Storage Performance|IOPS;Throughput;Latency;Performance Measuring Tools;How to Improve Storage Performance
 Module #15 - ONTAP Upgrade|Types of Upgrade;Upgrade Advisor;Pre-Check;Image download;Image upload to cluster;Perform upgrade and monitor during upgrade;Boot ONTAP from secondary Image;Post check
-Module #16 - Interview Preparation|Profile Preparation;Job search Strategy;Strategy to get high salary;Training Feeback and Course Completion Certificate share.`;
+Module #16 - Interview Preparation|Profile Preparation;Job search Strategy;Strategy to get high salary;Training Feedback and Course Completion Certificate share.`;
 const tl=$('#tl');C.split('\n').forEach((r,i)=>{const[h,l]=r.split('|'),d=document.createElement('div');d.className='md rv';
 d.innerHTML=`<button aria-expanded="false" aria-controls="m${i}">${h}</button><div id="m${i}"><ul>${l.split(';').map(x=>x.replace(/\s*\(LAB\)\s*$/,m=>'')==x?`<li>${x}</li>`:`<li>${x.replace(/\s*\(LAB\)\s*$/,'')}<i>LAB</i></li>`).join('')}</ul></div>`;
 d.querySelector('button').onclick=e=>{const o=d.classList.toggle('o');e.currentTarget.setAttribute('aria-expanded',o)};tl.appendChild(d)});
 tl.firstChild.classList.add('o');
-const A=['25+ detailed lectures','5 Days in a week class','Recorded Videos will be shared','Lab will be provided','Course Completion Certificate provided','Interview Preperation','Get support on call & WhatsApp','No Coding knowledge needed'];
+const A=['25+ detailed lectures','5 Days in a week class','Recorded Videos will be shared','Lab will be provided','Course Completion Certificate provided','Interview Preparation','Get support on call & WhatsApp','No Coding knowledge needed'];
 $('#hz').innerHTML=A.map((t,i)=>`<div class="cd st"><p class="k">0${i+1}</p><h3>${t}</h3></div>`).join('');
 const R='Vinod,Venkata,Siddhu-1,Shreelatha-1,Sandeep,Sandeep-B,Ravi,Raghav,Murthy,Mayur,Dhruva,Anurag,Ananth-1,Ananth,Ajee,Abhijitt,Abhijit,Maviti-1'.split(',');
 const RU=n=>`https://netappguru.com/wp-content/uploads/2025/11/${n}.jpg`;
@@ -263,19 +299,28 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 const hd=$('#hd'),nv=$('#nv'),mb=$('#mb');mb.onclick=()=>{const o=nv.classList.toggle('o');mb.setAttribute('aria-expanded',o)};nv.onclick=e=>{if(e.target.closest('a'))nv.classList.remove('o')};$('.ch').onclick=e=>{const d=e.target.parentNode,o=d.classList.toggle('o');e.target.setAttribute('aria-expanded',o)};
 
 let tk=0;addEventListener('scroll',()=>{if(tk)return;tk=1;requestAnimationFrame(()=>{tk=0;const y=scrollY,m=document.documentElement.scrollHeight-innerHeight;
-$('#pg').style.transform=`scaleX(${y/m})`;hd.classList.toggle('s',y>60);
+$('#pg').style.transform=`scaleX(${m>0?Math.min(y/m,1):0})`;hd.classList.toggle('s',y>60);
 const hc=$('#hc');if(!RM&&y<innerHeight){hc.style.transform=`translateY(${y*.25}px) scale(${1-y/innerHeight*.12})`;hc.style.opacity=1-y/innerHeight*1.1}})},{passive:true});
 // tilt + magnetic
 $$('.t').forEach(c=>{c.onpointermove=e=>{if(RM||e.pointerType!='mouse')return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`rotateY(${x*14}deg) rotateX(${-y*14}deg)`};c.onpointerleave=()=>c.style.transform=''});
 $$('.mg').forEach(b=>{b.onpointermove=e=>{if(RM||e.pointerType!='mouse')return;const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.2}px,${(e.clientY-r.top-r.height/2)*.3}px)`};b.onpointerleave=()=>b.style.transform=''});
+// Optional real submission: set ENQUIRY_ENDPOINT to a form service or server URL that accepts a JSON POST
+// ({"First Name":..,"Last Name":..,"Mobile Number":..,"Email":..,"Message":..}) and returns 2xx on success.
+// Leave empty to use the mail-app hand-off. Never place secret keys in this file.
+const ENQUIRY_ENDPOINT='';
 // forms: no endpoint is published on the source site -> opens the visitor's mail app; never claims success
 $$('form.eform').forEach(f=>{const m=f.querySelector('.fm');f.onsubmit=e=>{e.preventDefault();const F=[...f.querySelectorAll('input,textarea')];let bad=0;
 F.forEach(i=>{let er=i.parentNode.querySelector('.er');if(!er){er=document.createElement('span');er.className='er';er.id=i.id+'-e';i.after(er);i.setAttribute('aria-describedby',er.id)}const ok=i.checkValidity();i.setAttribute('aria-invalid',!ok);er.textContent=ok?'':(i.validity.valueMissing?'This field is required.':'Please enter a valid value.');bad+=!ok});
 if(bad){m.style.color='#ff9b9b';m.textContent='Please correct the highlighted fields.';f.querySelector('[aria-invalid=true]').focus();return}
-m.style.color='#c4d2ea';m.textContent='Opening your email app. Your enquiry is sent only once you press send there. You can also use WhatsApp or the phone number.';
+if(ENQUIRY_ENDPOINT){const b=f.querySelector('button[type=submit]'),lb=b.textContent;b.disabled=true;b.textContent='Sending…';m.style.color='#c4d2ea';m.textContent='Sending your enquiry…';
+fetch(ENQUIRY_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(Object.fromEntries(F.map(i=>[i.dataset.l,i.value])))})
+.then(r=>{if(!r.ok)throw new Error(r.status);m.style.color='#9be3b0';m.textContent='Thank you. Your enquiry has been sent.';f.reset();F.forEach(i=>i.removeAttribute('aria-invalid'))})
+.catch(()=>{m.style.color='#ff9b9b';m.textContent='Your enquiry could not be sent. Please try again, or use WhatsApp, phone or email.'})
+.finally(()=>{b.disabled=false;b.textContent=lb});return}
+m.style.color='#c4d2ea';m.textContent='Opening your email app. Your enquiry is sent only once you press send there. If nothing opens, email netapptraining2526@gmail.com or use WhatsApp.';
 location.href='mailto:netapptraining2526@gmail.com?subject='+encodeURIComponent('Enquiry from NetApp Guru website')+'&body='+encodeURIComponent(F.map(i=>i.dataset.l+': '+i.value).join('\n'))}});
 // canvas scenes: perspective-projected racks, blocks, nodes
-function scene(cv,rack){const x=cv.getContext('2d');let W,H,mx=0,my=0,t=0,run=0;
+function scene(cv,rack){const x=cv.getContext('2d');let W,H,mx=0,my=0,t=0,run=0,raf=0;
 const P=Array.from({length:50},()=>({x:Math.random()*2-1,y:Math.random()*2-1,z:Math.random()*2,s:Math.random()*.01+.002}));
 const N=Array.from({length:18},()=>({x:Math.random()*2-1,y:Math.random()*1.4-.7,z:Math.random()*1.5+.3}));
 function rs(){const d=Math.min(devicePixelRatio,2),r=cv.getBoundingClientRect();W=cv.width=r.width*d;H=cv.height=r.height*d}
@@ -289,10 +334,9 @@ const q=N.map(n=>pr(n.x+Math.sin(t+n.z)*.05,n.y+Math.cos(t*.8+n.x)*.05,n.z));x.l
 q.forEach((a,i)=>q.forEach((b,j)=>{if(j>i&&Math.hypot(a[0]-b[0],a[1]-b[1])<W*.2){x.strokeStyle=`rgba(0,140,255,.35)`;x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.stroke();const k=(t*.8+i*.3)%1;x.fillStyle='#f7941d';x.fillRect(a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k,3,3)}}));
 q.forEach(a=>{x.fillStyle='#4aa3ff';x.beginPath();x.arc(a[0],a[1],4*a[2],0,7);x.fill()});
 const sy=((t*.4)%1)*H;const g=x.createLinearGradient(0,sy-40,0,sy+40);g.addColorStop(.5,'rgba(247,148,29,.18)');g.addColorStop(0,'transparent');g.addColorStop(1,'transparent');x.fillStyle=g;x.fillRect(0,sy-40,W,80);
-if(!RM)requestAnimationFrame(fr)}
+if(!RM)raf=requestAnimationFrame(fr)}
 cv.parentElement.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=(e.clientX-r.left)/r.width-.5;my=(e.clientY-r.top)/r.height-.5});
-new IntersectionObserver(e=>{const on=e[0].isIntersecting;if(on&&!run){run=1;rs();fr()}else if(!on)run=0}).observe(cv);addEventListener('resize',rs);rs();if(RM){run=1;fr();run=0}}
-scene($('#cv'),0);
+new IntersectionObserver(e=>{const on=e[0].isIntersecting;if(on&&!run){run=1;rs();cancelAnimationFrame(raf);fr()}else if(!on){run=0;cancelAnimationFrame(raf)}}).observe(cv);addEventListener('resize',rs);rs();if(RM){run=1;fr();run=0}}
 
 // toc chips
 $$('#tl .md').forEach((m,i)=>{const b=document.createElement('button');b.textContent='M'+(i+1);b.title=m.querySelector('button').textContent;b.onclick=()=>{m.classList.add('o');m.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'})};$('#toc').appendChild(b)});
@@ -312,9 +356,12 @@ const OU='https://netappguru.com/',T={'home':['NetApp Guru — Learn NetApp Step
 'privacy-policy':['Privacy Policy — NetApp Guru','Privacy policy information for NetApp Guru.',''],'disclaimer':['Disclaimer — NetApp Guru','Disclaimer information for NetApp Guru.',''],'404':['Page not found — NetApp Guru','Page not found.','']};
 let cur;function route(){const[p,a]=location.hash.replace(/^#/,'').split('#');let h=(p||'').replace(/^\/|\/$/g,'')||'home';if(!T[h])h='404';
 $$('main>section').forEach(x=>x.hidden=!x.dataset.r.split(' ').includes(h));$$('.fv').forEach(x=>x.classList.remove('fv'));if(h!='home'){const f=$('main>section:not([hidden])');f&&f.classList.add('fv')}
-document.title=T[h][0];$('meta[name=description]').content=T[h][1];$('#cn').href=OU+T[h][2];
+document.title=T[h][0];$('#ann').textContent=T[h][0];$('meta[name=description]').content=T[h][1];$('#cn').href=OU+T[h][2];
 $$('nav a').forEach(x=>{const n=x.dataset.n;x.classList.toggle('on',n==h||(n=='courses'&&h.startsWith('courses/')));n==h?x.setAttribute('aria-current','page'):x.removeAttribute('aria-current')});
+$$('[data-h1]').forEach(x=>{x.removeAttribute('role');x.removeAttribute('aria-level');x.removeAttribute('data-h1')});if(!$('main>section:not([hidden]) h1')){const t=$('main>section:not([hidden]) h2');t&&(t.setAttribute('role','heading'),t.setAttribute('aria-level','1'),t.dataset.h1=1)}
 $("#sb").hidden=['contact','enquiry'].includes(h);nv.classList.remove('o');$$('.dd').forEach(d=>d.classList.remove('o'));
-if(h!=cur)scrollTo(0,0);cur=h;if(a)setTimeout(()=>{const e=document.getElementById(a);e&&e.scrollIntoView({behavior:RM?'auto':'smooth'})},60);dispatchEvent(new Event('scroll'))}
+if(h!=cur)scrollTo({top:0,behavior:'instant'});cur=h;if(a)setTimeout(()=>{const e=document.getElementById(a);e&&e.scrollIntoView({behavior:RM?'auto':'smooth'})},60);dispatchEvent(new Event('scroll'))}
+$('.skip').addEventListener('click',e=>{e.preventDefault();const m=$('#main-content');m.focus({preventScroll:true});m.scrollIntoView({block:'start',behavior:RM?'auto':'smooth'})});
+addEventListener('keydown',e=>{if(e.key=='Escape'&&nv.classList.contains('o')){nv.classList.remove('o');mb.setAttribute('aria-expanded',false);mb.focus()}});
 addEventListener('hashchange',route);if(!location.hash)history.replaceState(null,'','#/home');route();
 </script></body></html>
